@@ -175,6 +175,28 @@
             margin-top: 45px; transition: all 0.3s ease; 
         }
 
+        /* --- PHẦN BỔ SUNG: ALBUM ẢNH CƯỚI --- */
+        .album-section { padding: 80px 15px; text-align: center; background-color: #fff; }
+        .album-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--moss-green); letter-spacing: 5px; margin-bottom: 40px; text-transform: uppercase; }
+        .photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 800px; margin: 0 auto; }
+        .photo-item { position: relative; aspect-ratio: 1/1; overflow: hidden; border-radius: 10px; cursor: pointer; }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .photo-item:hover img { transform: scale(1.05); }
+        .photo-more::after {
+            content: "+7"; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4); color: white; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
+        }
+
+        /* LIGHTBOX (Xem ảnh phóng to) */
+        .lightbox {
+            display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+            justify-content: center; align-items: center;
+        }
+        .lightbox-content { max-width: 90%; max-height: 80%; border-radius: 5px; }
+        .close-lightbox { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+        .nav-btn { position: absolute; top: 50%; color: white; font-size: 50px; cursor: pointer; padding: 10px; transform: translateY(-50%); }
+        .prev-btn { left: 20px; } .next-btn { right: 20px; }
+
         /* RESPONSIVE */
         @media (max-width: 600px) {
             .calendar-side { font-size: 0.9rem; letter-spacing: 1px; }
@@ -186,6 +208,7 @@
             .name-display { font-size: 1.3rem; letter-spacing: 2px; }
             .btn-direction { font-size: 1.1rem; }
             .btn-direction img { width: 35px; }
+            .photo-grid { gap: 10px; }
         }
 
         @media (min-width: 768px) { .couple-grid { flex-direction: row; max-width: 900px; } }
@@ -290,6 +313,25 @@
         <button class="btn-rsvp" data-aos="zoom-in">XÁC NHẬN THAM DỰ</button>
     </section>
 
+    <!-- PHẦN BỔ SUNG: ALBUM ẢNH CƯỚI (10 ẢNH) -->
+    <section class="album-section" id="wedding-gallery">
+        <h2 class="album-title" data-aos="fade-up">Album Ảnh Cưới</h2>
+        <div class="photo-grid" data-aos="fade-up">
+            <div class="photo-item" onclick="openLightbox(0)"><img src="1.jpg"></div>
+            <div class="photo-item" onclick="openLightbox(1)"><img src="2.jpg"></div>
+            <div class="photo-item" onclick="openLightbox(2)"><img src="3.jpg"></div>
+            <div class="photo-item photo-more" onclick="openLightbox(3)"><img src="4.jpg"></div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX ĐỂ XEM ẢNH -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <span class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <span class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</span>
+    </div>
+
     <footer style="text-align: center; padding: 60px 20px; background: #fff; font-size: 0.7rem; color: #aaa; letter-spacing: 1px;">
         DESIGNED FOR THE SPECIAL DAY OF MINH TRAN & DUC HUY © 2026
     </footer>
@@ -297,6 +339,8 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1200, once: true });
+        
+        // COUNTDOWN SCRIPT
         const weddingDate = new Date("May 9, 2026 18:30:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
@@ -307,6 +351,32 @@
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
             document.getElementById("timer").innerHTML = days + " ngày " + hours + ":" + minutes + ":" + seconds;
         }, 1000);
+
+        // ALBUM LIGHTBOX SCRIPT
+        const images = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg", "10.jpg"];
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            document.getElementById("lightbox-img").src = images[currentIndex];
+            document.getElementById("lightbox").style.display = "flex";
+        }
+
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+
+        function changeImage(step) {
+            currentIndex += step;
+            if (currentIndex >= images.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = images.length - 1;
+            document.getElementById("lightbox-img").src = images[currentIndex];
+        }
+
+        // Đóng lightbox khi bấm ra ngoài ảnh
+        document.getElementById("lightbox").onclick = function(e) {
+            if (e.target.id === "lightbox") closeLightbox();
+        };
     </script>
 </body>
 </html>
