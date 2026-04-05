@@ -1,233 +1,176 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation - Minh Trân & Đức Huy</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- AOS Library for Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #fce4ec;
+            --accent-pink: #f06292;
+            --text-dark: #4a4a4a;
+            --white: #ffffff;
+        }
 
-<title>Minh Trân & Đức Huy</title>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Be+Vietnam+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=2000') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
 
-<style>
-body{margin:0;font-family:'Be Vietnam Pro',sans-serif;color:#333}
+        .hero h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 5rem;
+            color: var(--accent-pink);
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
 
-/* ===== INTRO THƯ ===== */
-.intro{
-  position:fixed;inset:0;
-  background:linear-gradient(135deg,#fff0f5,#ffe4ec);
-  display:flex;align-items:center;justify-content:center;
-  z-index:999;
-}
+        .hero p {
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
 
-.envelope{
-  position:relative;
-  width:320px;height:220px;
-  background:#fff;border-radius:10px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.2);
-  overflow:hidden;
-}
+        /* Content Sections */
+        .section {
+            padding: 80px 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-.flap{
-  position:absolute;top:0;width:100%;height:100%;
-  background:#ff8fa3;
-  clip-path:polygon(0 0,100% 0,50% 60%);
-  transition:0.8s;
-  z-index:2;
-}
+        .section-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: var(--accent-pink);
+            margin-bottom: 30px;
+        }
 
-.letter{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;padding:20px;
-}
+        .info-card {
+            background-color: var(--primary-pink);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
 
-.envelope.open .flap{transform:rotateX(180deg)}
+        .date-time {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 20px 0;
+        }
 
-.open-btn{
-  margin-top:10px;
-  padding:10px 20px;
-  border:none;border-radius:20px;
-  background:#ff8fa3;color:#fff;
-}
+        .venue {
+            font-size: 1.2rem;
+            font-style: italic;
+        }
 
-/* ===== HERO ===== */
-.hero{
-  height:100vh;
-  background:url('background.jpg') center/cover no-repeat;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;text-align:center;color:#fff;
-}
+        /* Dress Code */
+        .dress-code {
+            border: 2px dashed var(--accent-pink);
+            padding: 20px;
+            display: inline-block;
+            margin-top: 30px;
+        }
 
-.overlay{
-  position:absolute;inset:0;
-  background:rgba(0,0,0,0.3);
-}
+        .color-dots {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
 
-.hero-content{position:relative;z-index:2}
+        .dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+        }
 
-h1{
-  font-family:'Great Vibes',cursive;
-  font-size:64px;margin:0;
-}
+        /* Audio Player Styling */
+        #music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--accent-pink);
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
 
-.date{margin-top:10px;font-size:20px}
-.sub{margin-top:10px;font-size:16px}
-
-/* ===== COUPLE ===== */
-.couple{
-  margin-top:-80px;
-  display:flex;justify-content:center;gap:20px;
-}
-
-.couple img{
-  width:170px;height:250px;
-  object-fit:cover;
-  border-radius:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
-}
-
-/* ===== SECTION ===== */
-.section{
-  padding:80px 20px;
-  text-align:center;
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s;
-}
-.section.show{opacity:1;transform:translateY(0)}
-
-.title{font-size:26px;margin-bottom:20px}
-
-/* ===== GALLERY ===== */
-.gallery{
-  display:flex;gap:15px;overflow-x:auto;
-}
-.gallery img{
-  height:220px;border-radius:15px;
-}
-
-/* ===== MAP ===== */
-.map iframe{
-  width:100%;height:300px;
-  border-radius:15px;border:0;
-}
-
-/* ===== RSVP ===== */
-form{
-  max-width:400px;margin:auto;
-  display:flex;flex-direction:column;gap:10px;
-}
-input,textarea{
-  padding:12px;border-radius:10px;border:1px solid #ddd;
-}
-button.submit{
-  background:#ff8fa3;color:#fff;
-  border:none;padding:12px;border-radius:20px;
-}
-
-/* ===== MUSIC ===== */
-.music-btn{
-  position:fixed;top:20px;right:20px;
-  width:50px;height:50px;
-  border-radius:50%;border:none;
-  background:#ff8fa3;color:#fff;
-}
-</style>
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 3rem; }
+            .section-title { font-size: 2.5rem; }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- INTRO -->
-<div class="intro" id="intro">
-  <div class="envelope">
-    <div class="flap"></div>
-    <div class="letter">
-      <h2>💌 Thiệp mời cưới</h2>
-      <p>Minh Trân & Đức Huy</p>
-      <button class="open-btn" onclick="openCard()">Mở thiệp</button>
-    </div>
-  </div>
-</div>
+    <!-- Music (Beautiful In White) -->
+    <div id="music-control" onclick="toggleMusic()">🎵</div>
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <!-- Thay link nhạc "Beautiful In White" thực tế vào đây -->
+    </audio>
 
-<!-- MUSIC -->
-<audio id="music" loop>
-  <source src="music.mp3">
-</audio>
-<button class="music-btn" onclick="toggleMusic()">🎵</button>
+    <header class="hero">
+        <div data-aos="fade-down" data-aos-duration="1500">
+            <h1>Minh Trân & Đức Huy</h1>
+            <p>Save Our Date</p>
+            <div style="font-size: 2rem; margin-top: 20px;">09 . 05 . 2026</div>
+        </div>
+    </header>
 
-<!-- HERO -->
-<div class="hero">
-<div class="overlay"></div>
-<div class="hero-content">
-  <h1>Minh Trân & Đức Huy</h1>
-  <div class="date">09 May 2026</div>
-  <div class="sub">We are getting married 💕</div>
-</div>
-</div>
+    <section class="section">
+        <div class="info-card" data-aos="zoom-in">
+            <h2 class="section-title">Trân trọng kính mời</h2>
+            <p>Sự hiện diện của bạn là niềm vinh hạnh cho gia đình chúng tôi</p>
+            
+            <div class="date-time">
+                Thứ Bảy | 09.05.2026 | 18:00
+            </div>
+            
+            <div class="venue">
+                <strong>Pavillon Tân Sơn Nhất</strong><br>
+                202 Hoàng Văn Thụ, Phường 9, Phú Nhuận, TP. HCM
+            </div>
 
-<!-- COUPLE -->
-<div class="couple">
-  <img src="cd.jpg">
-  <img src="cr.jpg">
-</div>
+            <div class="dress-code">
+                <strong>Dress Code: Summer Cocktail</strong>
+                <div class="color-dots">
+                    <div class="dot" style="background-color: #fce4ec;"></div>
+                    <div class="dot" style="background-color: #ffffff;"></div>
+                    <div class="dot" style="background-color: #f8bbd0;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- ALBUM -->
-<div class="section">
-  <div class="title">📸 Album cưới</div>
-  <div class="gallery">
-    <img src="1.jpg">
-    <img src="2.jpg">
-    <img src="3.jpg">
-    <img src="4.jpg">
-    <img src="5.jpg">
-  </div>
-</div>
-
-<!-- MAP -->
-<div class="section map">
-  <div class="title">📍 Địa điểm tổ chức</div>
-  <p><b>PAVILLON TÂN SƠN NHẤT</b></p>
-  <p>202 Đ. Hoàng Văn Thụ, Phường 9, Đức Nhuận, Hồ Chí Minh</p>
-
-  <iframe src="https://www.google.com/maps?q=https://maps.app.goo.gl/a9MdTMnrWKeeFWcu5&output=embed"></iframe>
-</div>
-
-<!-- RSVP -->
-<div class="section">
-  <div class="title">💌 Xác nhận tham dự</div>
-  <form>
-    <input placeholder="Tên của bạn">
-    <input placeholder="Số điện thoại">
-    <textarea placeholder="Lời nhắn"></textarea>
-    <button class="submit">Gửi</button>
-  </form>
-</div>
-
-<script>
-function openCard(){
-  document.querySelector('.envelope').classList.add('open');
-  setTimeout(()=>{
-    document.getElementById('intro').style.display='none';
-    document.getElementById('music').play();
-  },800);
-}
-
-function toggleMusic(){
-  let m=document.getElementById('music');
-  m.paused?m.play():m.pause();
-}
-
-/* scroll animation */
-const sections=document.querySelectorAll('.section');
-window.addEventListener('scroll',()=>{
-  sections.forEach(sec=>{
-    if(sec.getBoundingClientRect().top < window.innerHeight-100){
-      sec.classList.add('show');
-    }
-  })
-})
-</script>
-
-</body>
-</html>
+    <section class="section" data-aos="fade-up">
+        <h2 class="section-title">Album Hình Ảnh</h2>
+        <p>(Khu vực này bạn có thể chèn các hình ảnh 4K/8K của mình)</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div style="background: #eee; height: 200px; border-radius: 1
