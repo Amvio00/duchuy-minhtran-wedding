@@ -158,14 +158,60 @@
 
     <!-- 3. ALBUM ẢNH CƯỚI -->
     <section class="album-section">
-        <h2 class="album-title" data-aos="fade-up">ALBUM ẢNH CƯỚI</h2>
-        <div class="photo-grid" data-aos="fade-up">
-            <div class="photo-item"><img src="album1.jpg"></div>
-            <div class="photo-item"><img src="album2.jpg"></div>
-            <div class="photo-item"><img src="album3.jpg"></div>
-            <div class="photo-item photo-more"><img src="album4.jpg"></div>
+    <h2 class="album-title" data-aos="fade-up">ALBUM ẢNH CƯỚI</h2>
+    <div class="photo-grid" data-aos="fade-up">
+        <!-- Tấm số 1 -->
+        <div class="photo-item">
+            <img src="1.jpg" alt="Wedding 1">
         </div>
-    </section>
+        <!-- Tấm số 2 -->
+        <div class="photo-item">
+            <img src="2.jpg" alt="Wedding 2">
+        </div>
+        <!-- Tấm số 3 -->
+        <div class="photo-item">
+            <img src="3.jpg" alt="Wedding 3">
+        </div>
+        <!-- Tấm số 4 (Hiển thị +6 vì tổng có 10 tấm) -->
+        <div class="photo-item photo-more" onclick="alert('Xem trọn bộ 10 ảnh tại đây!')">
+            <img src="4.jpg" alt="Wedding 4">
+        </div>
+        
+        <!-- Các tấm từ 5-10 bạn có thể ẩn đi hoặc để dành cho tính năng slide sau này -->
+        <div style="display:none;">
+            <img src="5.jpg">
+            <img src="6.jpg">
+            <img src="7.jpg">
+            <img src="8.jpg">
+            <img src="9.jpg">
+            <img src="10.jpg">
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Chỉnh lại phần hiển thị số +6 cho đúng với 10 tấm */
+    .photo-more::after {
+        content: "+6" !important; /* Vì tấm thứ 4 đang hiện, còn dư 6 tấm nữa */
+        position: absolute; 
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0, 0, 0, 0.5); 
+        color: white;
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        font-size: 2.5rem;
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+    }
+    
+    .photo-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+</style>
 
     <!-- 4. THÔNG TIN CHI TIẾT -->
     <section class="details-section">
