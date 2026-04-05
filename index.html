@@ -22,8 +22,9 @@
             color: var(--moss-green);
         }
 
+        /* --- BACKGROUND NHÁM --- */
         .invitation-container {
-            background: url('image_21.jpg') repeat;
+            background: url('image_21.jpg') repeat; /* Sử dụng ảnh nền giấy nhám */
             background-color: #f9f9f9;
             max-width: 600px;
             margin: 0 auto;
@@ -33,6 +34,7 @@
             box-sizing: border-box;
         }
 
+        /* --- GIA ĐÌNH --- */
         .family-info {
             display: flex;
             justify-content: space-between;
@@ -51,12 +53,14 @@
 
         .family-side p { margin: 0; color: var(--text-gray); }
 
+        /* --- LOGO --- */
         .wedding-logo {
             width: 80px;
             margin: 20px auto;
             display: block;
         }
 
+        /* --- LỜI MỜI --- */
         .invite-text {
             font-family: 'Playfair Display', serif;
             font-style: italic;
@@ -73,34 +77,25 @@
             margin: 20px auto;
         }
 
-        /* --- Tên và Vai vế (Út Nam/Nữ) --- */
-        .person-title {
+        /* --- TÊN CÔ DÂU CHÚ RỂ --- */
+        .couple-names {
             font-family: 'Playfair Display', serif;
-            font-size: 0.75rem;
+            font-size: 1.8rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: var(--text-gray);
-            margin-bottom: 5px;
-        }
-
-        .couple-names {
-            font-family: 'Playfair Display', serif; /* Font Serif cổ điển */
-            font-size: 1.7rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin: 10px 0;
-            font-weight: 400;
+            margin: 20px 0;
         }
 
         .and-text {
             font-family: 'Great Vibes', cursive;
             text-transform: lowercase;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             display: block;
             margin: 5px 0;
             color: var(--text-gray);
         }
 
+        /* --- THỜI GIAN --- */
         .event-label {
             background-color: var(--moss-green);
             color: white;
@@ -121,6 +116,11 @@
             font-family: 'Playfair Display', serif;
         }
 
+        .date-main {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
         .date-side {
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -138,9 +138,10 @@
             line-height: 1.6;
         }
 
+        /* RESPONSIVE MÀN HÌNH NHỎ */
         @media (max-width: 480px) {
             .invitation-container { padding: 40px 15px; }
-            .couple-names { font-size: 1.4rem; letter-spacing: 2px; }
+            .couple-names { font-size: 1.5rem; }
             .family-info { font-size: 0.65rem; }
         }
     </style>
@@ -149,6 +150,7 @@
 
 <div class="invitation-container" data-aos="fade-in">
     
+    <!-- Thông tin gia đình -->
     <div class="family-info">
         <div class="family-side">
             <h3>NHÀ TRAI</h3>
@@ -164,26 +166,26 @@
         </div>
     </div>
 
+    <!-- Logo hoa/chữ cái -->
     <img src="logo_wedding.png" alt="Logo" class="wedding-logo">
 
     <div class="invite-text">
-        Trân trọng kính mời Quý Khách tới Lễ Tân Hôn<br>
+        Trân trọng kính mời Quý Khách tới Lễ Thành Hôn<br>
         chung vui cùng chúng tôi
     </div>
 
     <div class="divider-vertical"></div>
 
-    <!-- Tên nhân vật chính kèm vai vế -->
-    <div class="person-title">Út nam</div>
-    <div class="couple-names">MAI ĐỨC HUY</div>
-    
-    <span class="and-text">and</span>
-    
-    <div class="person-title">Út nữ</div>
-    <div class="couple-names" style="margin-bottom: 20px;">NGUYỄN THỊ MINH TRÂN</div>
+    <!-- Tên nhân vật chính -->
+    <div class="couple-names">
+        MAI ĐỨC HUY
+        <span class="and-text">and</span>
+        NGUYỄN THỊ MINH TRÂN
+    </div>
 
-    <div class="event-label">LỄ TÂN HÔN</div>
+    <div class="event-label">LỄ THÀNH HÔN</div>
 
+    <!-- Khối ngày tháng -->
     <div class="date-grid">
         <div style="font-size: 0.8rem; letter-spacing: 1px;">18 GIỜ 00</div>
         <div class="date-side">
@@ -194,6 +196,7 @@
         <div style="font-size: 0.8rem; letter-spacing: 1px;">THỨ BẢY</div>
     </div>
 
+    <!-- Địa điểm -->
     <div class="location-info">
         <p>Tại Nhà hàng: <b>PAVILLON TÂN SƠN NHẤT</b></p>
         <p>202 Hoàng Văn Thụ, Phường 9, Q. Phú Nhuận, TP. HCM</p>
