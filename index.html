@@ -24,26 +24,28 @@
             background-color: var(--bg-color);
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
+            width: 100%;
         }
 
-        /* --- PHẦN 1: HERO (HÌNH NỀN CÂY CỐI) --- */
+        /* --- SECTION 1: HERO (HÌNH NỀN CÂY CỐI) --- */
         .hero {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: flex-start; 
-            padding-top: 10vh;
+            padding-top: 12vh;
             align-items: center;
             text-align: center;
             position: relative;
             background: url('anhnen1.jpg') no-repeat center center/cover;
+            background-attachment: scroll;
         }
 
         .hero::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.15); 
+            background: rgba(0, 0, 0, 0.2); 
             z-index: 1;
         }
 
@@ -56,29 +58,71 @@
         .main-title {
             font-family: 'Great Vibes', cursive;
             color: var(--metallic-gold);
-            margin: 5px 0;
+            margin: 10px 0;
             line-height: 1.2;
             text-shadow: 0px 1px 0px var(--gold-light), 0px 2px 0px var(--gold-shadow), 1px 4px 6px rgba(0,0,0,0.3);
-            font-size: clamp(2.5rem, 8vw, 5rem); 
+            font-size: clamp(2.5rem, 10vw, 5rem); 
         }
 
-        /* --- PHẦN 2: GIỚI THIỆU CÔ DÂU CHÚ RỂ (NỀN XANH RÊU) --- */
+        /* --- SECTION 2: GIỚI THIỆU CD-CR (XANH RÊU) --- */
         .couple-intro {
             background-color: var(--moss-green);
             padding: 100px 20px;
             text-align: center;
             color: #ffffff;
             position: relative;
-            overflow: hidden;
+            overflow: hidden; /* Để không bị tràn hoa ra ngoài */
         }
 
-        /* Viền hoa góc trang trí */
+        /* Hình hoa trang trí góc */
         .flower-decor {
             position: absolute;
-            width: 280px;
-            opacity: 0.6;
+            width: 250px;
             z-index: 1;
             pointer-events: none;
+            opacity: 0.8;
         }
-        .flower-1 { top: -20px; left: -20px; }
-        .flower-2 { bottom: -20px; right: -20px; transform
+        .flower-1 { top: -10px; left: -10px; }
+        .flower-2 { bottom: -10px; right: -10px; transform: rotate(180deg); }
+
+        .intro-quote {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 50px;
+        }
+
+        .line {
+            width: 1px; height: 50px;
+            background-color: rgba(255,255,255,0.3);
+            margin: 20px auto;
+        }
+
+        .couple-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 450px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .person-card {
+            position: relative;
+            border-radius: 25px; 
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            background: #3a4d3a; /* Nền dự phòng nếu ảnh lỗi */
+        }
+
+        .person-card img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            height: 500px;
+        }
+
+        .person-info {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 40px 15px 25
