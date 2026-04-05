@@ -1,25 +1,74 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Invitation</title>
+<title>Wedding Invitation | Minh Trân & Đức Huy</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
+    --bg-color: #fdfaf7;
     --green: #2d3e2d;
-    --light-bg: #fdfaf7;
+    --gold: #d4af37;
 }
 
+/* ===== BODY ===== */
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background: var(--light-bg);
+    background: var(--bg-color);
 }
 
-/* SECTION BACKGROUND */
+/* ===== HERO ===== */
+.hero {
+    height: 100vh;
+    background: url('anhnen1.jpg') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-family: 'Great Vibes';
+    font-size: 4rem;
+    color: var(--gold);
+}
+
+.hero p {
+    color: white;
+    letter-spacing: 3px;
+}
+
+/* ===== COUPLE ===== */
+.couple {
+    background: var(--green);
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.couple h2 {
+    font-family: 'Playfair Display';
+    letter-spacing: 2px;
+}
+
+.couple-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.person img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 20px;
+}
+
+/* ===== DETAILS ===== */
 .details-section {
     background: url('image_21.jpg') repeat;
     padding: 80px 20px;
@@ -27,13 +76,11 @@ body {
     color: var(--green);
 }
 
-/* ===== TITLE "LỄ TÂN HÔN" ===== */
+/* TITLE */
 .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.9rem;
+    font-family: 'Playfair Display';
     letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--green);
+    font-size: 0.9rem;
     margin-bottom: 25px;
     position: relative;
     display: inline-block;
@@ -46,42 +93,36 @@ body {
     top: 50%;
     width: 50px;
     height: 1px;
-    background: rgba(45, 62, 45, 0.3);
+    background: rgba(0,0,0,0.2);
 }
 
 .section-title::before { left: -60px; }
 .section-title::after { right: -60px; }
 
-/* ===== BOX NỘI DUNG ===== */
-.event-info-container {
+/* BOX */
+.event-info {
     background: rgba(255,255,255,0.35);
-    backdrop-filter: blur(4px);
     padding: 40px 20px;
     max-width: 600px;
-    margin: 0 auto;
+    margin: auto;
 }
 
 /* DATE */
-.date-text-main {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
+.date {
+    font-family: 'Playfair Display';
+    font-size: 1.3rem;
     letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
 }
 
 .lunar {
     font-style: italic;
-    font-size: 0.9rem;
-    opacity: 0.7;
-    margin-bottom: 25px;
+    margin: 10px 0 20px;
 }
 
-/* TIME GRID */
+/* TIME */
 .timeline {
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 30px;
     margin: 30px 0;
 }
@@ -90,78 +131,72 @@ body {
     text-align: center;
 }
 
-.time-label {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    opacity: 0.7;
-}
-
-.time-value {
-    font-size: 1.6rem;
-    font-weight: 600;
-    margin-top: 5px;
-}
-
 .divider {
     width: 1px;
-    height: 40px;
-    background: rgba(45,62,45,0.3);
+    background: rgba(0,0,0,0.2);
 }
 
 /* LOCATION */
 .location {
-    margin-top: 20px;
     line-height: 1.8;
-    font-size: 0.95rem;
-}
-
-.location b {
-    font-size: 1.1rem;
-}
-
-.hall {
-    display: block;
-    margin-top: 10px;
-    font-weight: 600;
-}
-
-/* COUNTDOWN */
-.countdown {
-    margin-top: 30px;
-    font-size: 0.9rem;
-}
-
-#timer {
-    display: block;
-    margin-top: 5px;
-    font-weight: 600;
 }
 
 /* BUTTON */
 .btn {
-    margin-top: 40px;
+    margin-top: 30px;
+    padding: 15px 40px;
     background: var(--green);
     color: white;
-    padding: 15px 40px;
     border-radius: 50px;
     border: none;
-    letter-spacing: 2px;
-    cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media(min-width:768px){
+    .couple-grid{
+        flex-direction: row;
+        justify-content: center;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- HERO -->
+<section class="hero">
+    <div>
+        <p>WELCOME TO OUR WEDDING</p>
+        <h1>Minh Trân & Đức Huy</h1>
+    </div>
+</section>
+
+<!-- COUPLE -->
+<section class="couple">
+    <h2>When Two Hearts Beat As One</h2>
+
+    <div class="couple-grid">
+        <div class="person">
+            <img src="anh_chu_re.jpg">
+            <p>ĐỨC HUY</p>
+        </div>
+
+        <div class="person">
+            <img src="anh_co_dau.jpg">
+            <p>MINH TRÂN</p>
+        </div>
+    </div>
+</section>
+
+<!-- DETAILS -->
 <section class="details-section">
 
-    <!-- TITLE OUTSIDE -->
+    <!-- 👇 NẰM NGOÀI -->
     <div class="section-title">LỄ TÂN HÔN</div>
 
-    <!-- CONTENT -->
-    <div class="event-info-container">
+    <div class="event-info">
 
-        <div class="date-text-main">
+        <div class="date">
             THỨ BẢY, 09 THÁNG 05 NĂM 2026
         </div>
 
@@ -169,32 +204,24 @@ body {
             (Tức ngày 23/03 Bính Ngọ)
         </div>
 
-        <!-- TIME -->
         <div class="timeline">
             <div class="time-block">
-                <div class="time-label">ĐÓN KHÁCH</div>
-                <div class="time-value">17:30</div>
+                <div>ĐÓN KHÁCH</div>
+                <div><b>17:30</b></div>
             </div>
 
             <div class="divider"></div>
 
             <div class="time-block">
-                <div class="time-label">KHAI TIỆC</div>
-                <div class="time-value">18:30</div>
+                <div>KHAI TIỆC</div>
+                <div><b>18:30</b></div>
             </div>
         </div>
 
-        <!-- LOCATION -->
         <div class="location">
             Tại Nhà hàng: <b>PAVILLON TÂN SƠN NHẤT</b><br>
-            202 Đ. Hoàng Văn Thụ, Phường 9, Phú Nhuận, Hồ Chí Minh
-            <span class="hall">Sảnh PEARL - Tầng 3</span>
-        </div>
-
-        <!-- COUNTDOWN -->
-        <div class="countdown">
-            Cùng đếm ngược:
-            <span id="timer"></span>
+            202 Hoàng Văn Thụ, Phú Nhuận<br>
+            <b>Sảnh PEARL - Tầng 3</b>
         </div>
 
         <button class="btn">XÁC NHẬN THAM DỰ</button>
@@ -202,23 +229,6 @@ body {
     </div>
 
 </section>
-
-<script>
-const weddingDate = new Date("May 9, 2026 18:30:00").getTime();
-
-setInterval(function () {
-    const now = new Date().getTime();
-    const d = weddingDate - now;
-
-    const days = Math.floor(d / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((d % (1000 * 60)) / 1000);
-
-    document.getElementById("timer").innerHTML =
-        days + " ngày " + hours + " giờ " + minutes + " phút " + seconds + " giây";
-}, 1000);
-</script>
 
 </body>
 </html>
