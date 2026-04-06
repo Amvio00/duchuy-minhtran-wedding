@@ -16,6 +16,7 @@
             --gold-light: #fff3d6;
             --gold-shadow: #8a6d3b;
             --text-dark: #333;
+            --calendar-green: #78a55a;
         }
 
         body {
@@ -229,6 +230,34 @@
         .textarea-field { height: 150px; resize: none; }
         .btn-send-wish { align-self: flex-end; background-color: var(--moss-green); color: white; padding: 15px 40px; border-radius: 12px; border: none; cursor: pointer; font-weight: 700; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s; margin-top: 10px; }
 
+        /* --- CALENDAR AT BOTTOM --- */
+        .calendar-container {
+            max-width: 350px;
+            margin: 100px auto 20px auto;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .cal-header-bottom { position: relative; margin-bottom: 25px; }
+        .cal-year-bg { font-size: 5.5rem; font-weight: 700; color: var(--calendar-green); opacity: 0.15; line-height: 1; }
+        .cal-month-fg { 
+            font-family: 'Great Vibes', cursive; font-size: 3.2rem; color: var(--moss-green); 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -15%); width: 100%; 
+        }
+        .cal-grid-bottom { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+        .cal-weekday-bottom { font-size: 0.7rem; font-weight: 600; color: var(--calendar-green); margin-bottom: 10px; }
+        .cal-date-bottom { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; color: #333; }
+        .cal-date-bottom.active {
+            background-color: var(--calendar-green); color: #fff; font-weight: bold; border-radius: 50%;
+            box-shadow: 0 3px 8px rgba(120, 165, 90, 0.4);
+        }
+        .footer-credit {
+            text-align: center; font-size: 0.75rem; letter-spacing: 2px; color: #888;
+            padding: 40px 0 60px 0; font-family: 'Montserrat', sans-serif; text-transform: uppercase;
+        }
+
         /* MODALS */
         .lightbox, .modal-rsvp {
             display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
@@ -253,35 +282,26 @@
             .color-circle { width: 45px; height: 45px; }
         }
         @media (min-width: 768px) { .couple-grid { flex-direction: row; max-width: 900px; } }
+
         /* --- EFFECT: FALLING ELEMENTS --- */
-.particle {
-    position: fixed;
-    top: -50px;
-    z-index: 9999;
-    pointer-events: none;
-    user-select: none;
-    animation: fall linear forwards;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(110vh) rotate(360deg);
-    }
-}
-
-/* Hiệu ứng lấp lánh riêng cho ngôi sao */
-.bling {
-    animation: fall linear forwards, twinkle 1.5s infinite alternate;
-}
-
-@keyframes twinkle {
-    from { opacity: 0.5; transform: scale(0.8) translateY(0); }
-    to { opacity: 1; transform: scale(1.2) translateY(5px); }
-}
+        .particle {
+            position: fixed; top: -50px; z-index: 9999;
+            pointer-events: none; user-select: none;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+        .bling { animation: fall linear forwards, twinkle 1.5s infinite alternate; }
+        @keyframes twinkle {
+            from { opacity: 0.5; transform: scale(0.8) translateY(0); }
+            to { opacity: 1; transform: scale(1.2) translateY(5px); }
+        }
     </style>
 </head>
 <body>
 
+    <!-- HERO -->
     <section class="hero">
         <div class="hero-content" data-aos="fade-up">
             <p class="welcome-text">WELCOME TO OUR WEDDING</p>
@@ -290,6 +310,7 @@
         </div>
     </section>
 
+    <!-- COUPLE -->
     <section class="couple-intro">
         <img src="hình_hoa_1.png" class="flower-decor flower-1" alt="hoa">
         <img src="hình_hoa_2.png" class="flower-decor flower-2" alt="hoa">
@@ -316,13 +337,14 @@
         </div>
     </section>
 
+    <!-- DETAILS -->
     <section class="details-section">
         <div class="family-info" data-aos="fade-up">
             <div class="family-side">
                 <h3>Nhà Trai</h3>
                 <p>Ông: Mai Văn Thọ</p>
                 <p>Bà: Vũ Thuý Phượng</p>
-                <p style="opacity: 0.7; font-size: 0.75rem;">Phan Huy Ích, Phường. Tân Sơn, <span style="white-space: nowrap;">TP. Hồ Chí Minh</span></p>
+                <p style="opacity: 0.7; font-size: 0.75rem;">Phan Huy Ích, Phường. Tân Sơn, TP. Hồ Chí Minh</p>
             </div>
             <div class="family-side">
                 <h3>Nhà Gái</h3>
@@ -334,9 +356,7 @@
 
         <img src="logo_wedding.png" alt="Logo" class="wedding-logo-large" data-aos="zoom-in">
 
-        <div class="announcement-text" data-aos="fade-up">
-            Trân trọng thông báo LỄ TÂN HÔN của
-        </div>
+        <div class="announcement-text" data-aos="fade-up">Trân trọng thông báo LỄ TÂN HÔN của</div>
 
         <div class="full-names-display" data-aos="fade-up">
             <div class="role-title">Út Nam</div>
@@ -373,15 +393,14 @@
             Sảnh tiệc: <b>PEARL - Tầng 3</b>
         </div>
 
-        <!-- DRESS CODE SECTION -->
         <div class="dress-code-container" data-aos="fade-up">
             <h3 class="dress-code-title">DRESS CODE</h3>
             <div class="color-palette">
-                <div class="color-circle" style="background-color: #63402C;"></div> <!-- Nâu -->
-                <div class="color-circle" style="background-color: #000000;"></div> <!-- Đen -->
-                <div class="color-circle" style="background-color: #F3D1CD;"></div> <!-- Hồng -->
-                <div class="color-circle" style="background-color: #E6D8C5;"></div> <!-- Be -->
-                <div class="color-circle" style="background-color: #162B40;"></div> <!-- Xanh Navy -->
+                <div class="color-circle" style="background-color: #63402C;"></div>
+                <div class="color-circle" style="background-color: #000000;"></div>
+                <div class="color-circle" style="background-color: #F3D1CD;"></div>
+                <div class="color-circle" style="background-color: #E6D8C5;"></div>
+                <div class="color-circle" style="background-color: #162B40;"></div>
             </div>
         </div>
 
@@ -397,17 +416,14 @@
         <button class="btn-rsvp" id="openRSVP" data-aos="zoom-in">XÁC NHẬN THAM DỰ</button>
     </section>
 
-   <!-- ALBUM -->
+    <!-- ALBUM -->
     <section class="album-section" id="wedding-gallery">
         <h2 class="album-title" data-aos="fade-up">Album Ảnh Cưới</h2>
         <div class="photo-grid" data-aos="fade-up">
             <div class="photo-item" onclick="openLightbox(0)"><img src="1.webp"></div>
             <div class="photo-item" onclick="openLightbox(1)"><img src="2.webp"></div>
             <div class="photo-item" onclick="openLightbox(2)"><img src="3.webp"></div>
-            <!-- Ô cuối cùng đại diện cho các ảnh còn lại -->
             <div class="photo-item photo-more" onclick="openLightbox(3)"><img src="4.webp"></div>
-            
-            <!-- Các ảnh ẩn từ 5-10 để script có thể nhận diện khi bấm Next/Prev -->
             <div style="display:none;">
                 <img src="5.webp" onclick="openLightbox(4)">
                 <img src="6.webp" onclick="openLightbox(5)">
@@ -431,43 +447,82 @@
         </div>
     </section>
 
-    <!-- MODAL RSVP (LINKED TO GOOGLE FORM) -->
-   <div id="rsvpModal" class="modal-rsvp">
-    <div class="modal-rsvp-content">
-        <span id="closeRSVP" class="close-modal" style="color: #333;">&times;</span>
-        <h2 style="color: var(--moss-green);">Xác nhận tham dự</h2>
-        <!-- ĐÃ CẬP NHẬT ACTION URL ĐÚNG VỚI FORM 4oClc -->
-        <form id="weddingForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdc3WO7y75vvNHK9YRHlW9e4l0iE1jrIZKZpMJ9ejt-kuw9iw/formResponse" method="POST" target="hidden_iframe">
-    
-    <!-- Nhập tên -->
-    <input type="text" name="entry.568495053" style="width: 100%; padding: 15px; border: 1px solid #eee; border-radius: 15px; margin-bottom: 20px;" placeholder="Nhập tên của bạn" required>
-    
-    <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px;">
-        <!-- Lựa chọn 1 -->
-        <label class="option-item">
-            <input type="radio" name="entry.923450313" value="Tôi sẽ đến" required>
-            <div class="custom-check-rsvp">✓</div><span>Tôi sẽ đến</span>
-        </label>
-        
-        <!-- Lựa chọn 2 -->
-        <label class="option-item">
-            <input type="radio" name="entry.923450313" value="Rất tiếc tôi không thể đến">
-            <div class="custom-check-rsvp">✕</div><span>Rất tiếc tôi không thể đến</span>
-        </label>
-        
-        <!-- Lựa chọn 3 -->
-        <label class="option-item">
-            <input type="radio" name="entry.923450313" value="Chưa chắc chắn">
-            <div class="custom-check-rsvp">?</div><span>Chưa chắc chắn</span>
-        </label>
-    </div>
-    
-    <button type="submit" style="width: 100%; background: var(--moss-green); color: white; padding: 18px; border-radius: 18px; border: none; font-weight: 700; cursor: pointer;">GỬI XÁC NHẬN</button>
-</form>
-    </div>
-</div>
+    <!-- KẾT THÚC TRANG WEB: LỊCH & CREDIT -->
+    <section id="final-section">
+        <div class="calendar-container" data-aos="zoom-in">
+            <div class="cal-header-bottom">
+                <div class="cal-year-bg">2026</div>
+                <div class="cal-month-fg">May</div>
+            </div>
+            
+            <div class="cal-grid-bottom">
+                <div class="cal-weekday-bottom">T2</div>
+                <div class="cal-weekday-bottom">T3</div>
+                <div class="cal-weekday-bottom">T4</div>
+                <div class="cal-weekday-bottom">T5</div>
+                <div class="cal-weekday-bottom">T6</div>
+                <div class="cal-weekday-bottom">T7</div>
+                <div class="cal-weekday-bottom">CN</div>
 
-    <!-- Hidden iframes for form submission -->
+                <!-- Căn lề cho tháng 5/2026 -->
+                <div></div><div></div><div></div><div></div>
+                <div class="cal-date-bottom">1</div>
+                <div class="cal-date-bottom">2</div>
+                <div class="cal-date-bottom">3</div>
+                <div class="cal-date-bottom">4</div>
+                <div class="cal-date-bottom">5</div>
+                <div class="cal-date-bottom">6</div>
+                <div class="cal-date-bottom">7</div>
+                <div class="cal-date-bottom">8</div>
+                <div class="cal-date-bottom active">9</div>
+                <div class="cal-date-bottom">10</div>
+                <div class="cal-date-bottom">11</div>
+                <div class="cal-date-bottom">12</div>
+                <div class="cal-date-bottom">13</div>
+                <div class="cal-date-bottom">14</div>
+                <div class="cal-date-bottom">15</div>
+                <div class="cal-date-bottom">16</div>
+                <div class="cal-date-bottom">17</div>
+                <div class="cal-date-bottom" style="opacity: 0.3;">...</div>
+                <div class="cal-date-bottom" style="opacity: 0.3;">31</div>
+            </div>
+            <div style="font-style: italic; font-size: 0.8rem; margin-top: 15px; color: var(--moss-green);">
+                "We'll be sharing a home and a life together in"
+            </div>
+        </div>
+
+        <div class="footer-credit">
+            DESIGNED FOR THE SPECIAL DAY OF MINH TRAN & DUC HUY © 2026
+        </div>
+    </section>
+
+    <!-- MODAL RSVP -->
+    <div id="rsvpModal" class="modal-rsvp">
+        <div class="modal-rsvp-content">
+            <span id="closeRSVP" class="close-modal" style="color: #333;">&times;</span>
+            <h2 style="color: var(--moss-green);">Xác nhận tham dự</h2>
+            <form id="weddingForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdc3WO7y75vvNHK9YRHlW9e4l0iE1jrIZKZpMJ9ejt-kuw9iw/formResponse" method="POST" target="hidden_iframe">
+                <input type="text" name="entry.568495053" style="width: 100%; padding: 15px; border: 1px solid #eee; border-radius: 15px; margin-bottom: 20px;" placeholder="Nhập tên của bạn" required>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px;">
+                    <label class="option-item">
+                        <input type="radio" name="entry.923450313" value="Tôi sẽ đến" required>
+                        <div class="custom-check-rsvp">✓</div><span>Tôi sẽ đến</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="entry.923450313" value="Rất tiếc tôi không thể đến">
+                        <div class="custom-check-rsvp">✕</div><span>Rất tiếc tôi không thể đến</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="entry.923450313" value="Chưa chắc chắn">
+                        <div class="custom-check-rsvp">?</div><span>Chưa chắc chắn</span>
+                    </label>
+                </div>
+                <button type="submit" style="width: 100%; background: var(--moss-green); color: white; padding: 18px; border-radius: 18px; border: none; font-weight: 700; cursor: pointer;">GỬI XÁC NHẬN</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- IFRAMES -->
     <iframe name="hidden_iframe" style="display:none;" onload="if(submitted){alert('Cảm ơn bạn đã xác nhận!'); document.getElementById('rsvpModal').style.display='none'; submitted=false;}"></iframe>
     <iframe name="wish_hidden_iframe" style="display:none;" onload="if(wishSubmitted){alert('Cảm ơn lời chúc của bạn!'); document.getElementById('wishForm').reset(); wishSubmitted=false;}"></iframe>
 
@@ -485,9 +540,7 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const guest = urlParams.get('guest');
-        if (guest) {
-            document.getElementById("guest-name").innerText = guest;
-        }
+        if (guest) { document.getElementById("guest-name").innerText = guest; }
 
         const weddingDate = new Date("May 9, 2026 18:30:00").getTime();
         setInterval(function() {
@@ -500,91 +553,50 @@
             }
         }, 1000);
 
-        // Danh sách đầy đủ 10 ảnh của bạn
         const images = ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp"];
         let currentIndex = 0;
-
-        function openLightbox(index) {
-            currentIndex = index;
-            document.getElementById("lightbox-img").src = images[currentIndex];
-            document.getElementById("lightbox").style.display = "flex";
-        }
-
-        function closeLightbox() {
-            document.getElementById("lightbox").style.display = "none";
-        }
-
-        function changeImage(step) {
-            currentIndex += step;
-            if (currentIndex >= images.length) currentIndex = 0;
-            if (currentIndex < 0) currentIndex = images.length - 1;
-            document.getElementById("lightbox-img").src = images[currentIndex];
-        }
+        function openLightbox(index) { currentIndex = index; document.getElementById("lightbox-img").src = images[currentIndex]; document.getElementById("lightbox").style.display = "flex"; }
+        function closeLightbox() { document.getElementById("lightbox").style.display = "none"; }
+        function changeImage(step) { currentIndex += step; if (currentIndex >= images.length) currentIndex = 0; if (currentIndex < 0) currentIndex = images.length - 1; document.getElementById("lightbox-img").src = images[currentIndex]; }
 
         const modal = document.getElementById("rsvpModal");
         document.getElementById("openRSVP").onclick = () => modal.style.display = "flex";
         document.getElementById("closeRSVP").onclick = () => modal.style.display = "none";
         document.getElementById("weddingForm").onsubmit = () => { submitted = true; return true; };
         document.getElementById("wishForm").onsubmit = () => { wishSubmitted = true; return true; };
+
+        // --- PARTICLE EFFECT ---
+        const particleIcons = ['💐', '🌹', '🌿','✨','☘️', '🌸'];
+        function createParticle() {
+            const p = document.createElement('div');
+            const type = particleIcons[Math.floor(Math.random() * particleIcons.length)];
+            p.innerText = type;
+            p.className = 'particle';
+            if (type === '✨') p.classList.add('bling');
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            p.style.opacity = Math.random() * 0.5 + 0.5;
+            p.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(p);
+            setTimeout(() => { p.remove(); }, 7000);
+        }
+        setInterval(createParticle, 500);
+
+        // --- AUTO SCROLL ---
+        let isAutoScrolling = true;
+        let scrollSpeed = 1;
+        let autoScrollTimer;
+        function startAutoScroll() { if (!isAutoScrolling) return; window.scrollBy(0, scrollSpeed); autoScrollTimer = requestAnimationFrame(startAutoScroll); }
+        function stopAutoScroll() {
+            isAutoScrolling = false;
+            cancelAnimationFrame(autoScrollTimer);
+            clearTimeout(window.resumeTimer);
+            window.resumeTimer = setTimeout(() => { isAutoScrolling = true; startAutoScroll(); }, 5000); 
+        }
+        window.addEventListener('wheel', stopAutoScroll);
+        window.addEventListener('touchstart', stopAutoScroll);
+        window.addEventListener('mousedown', stopAutoScroll);
+        startAutoScroll();
     </script>
-    <script>
-    // --- 1. TẠO HIỆU ỨNG RƠI ---
-    const particles = ['💐', '🌹', '🌿','✨','☘️', '🌸']; // Bạn có thể thêm icon tùy thích
-    
-    function createParticle() {
-        const p = document.createElement('div');
-        const type = particles[Math.floor(Math.random() * particles.length)];
-        
-        p.innerText = type;
-        p.className = 'particle';
-        if (type === '✨') p.classList.add('bling');
-        
-        // Ngẫu nhiên vị trí, kích thước, thời gian rơi
-        p.style.left = Math.random() * 100 + 'vw';
-        p.style.fontSize = (Math.random() * 15 + 10) + 'px';
-        p.style.opacity = Math.random() * 0.5 + 0.5;
-        p.style.animationDuration = (Math.random() * 3 + 4) + 's'; // Rơi trong 4-7s
-        
-        document.body.appendChild(p);
-        
-        // Xóa sau khi rơi xong để nhẹ máy
-        setTimeout(() => { p.remove(); }, 7000);
-    }
-    
-    // Tạo phần tử rơi mỗi 500ms
-    setInterval(createParticle, 500);
-
-    // --- 2. TỰ ĐỘNG CUỘN (AUTO-SCROLL) ---
-    let isAutoScrolling = true;
-    let scrollSpeed = 1; // Tốc độ cuộn (tăng số này nếu muốn nhanh hơn)
-    let autoScrollTimer;
-
-    function startAutoScroll() {
-        if (!isAutoScrolling) return;
-        window.scrollBy(0, scrollSpeed);
-        autoScrollTimer = requestAnimationFrame(startAutoScroll);
-    }
-
-    // Dừng cuộn khi có tương tác (chạm, cuộn chuột, click)
-    function stopAutoScroll() {
-        isAutoScrolling = false;
-        cancelAnimationFrame(autoScrollTimer);
-        
-        // Sau 5 giây không làm gì thì tự động cuộn lại
-        clearTimeout(window.resumeTimer);
-        window.resumeTimer = setTimeout(() => {
-            isAutoScrolling = true;
-            startAutoScroll();
-        }, 5000); 
-    }
-
-    // Lắng nghe các sự kiện tương tác của người dùng
-    window.addEventListener('wheel', stopAutoScroll);
-    window.addEventListener('touchstart', stopAutoScroll);
-    window.addEventListener('mousedown', stopAutoScroll);
-
-    // Bắt đầu chạy
-    startAutoScroll();
-</script>
 </body>
 </html>
