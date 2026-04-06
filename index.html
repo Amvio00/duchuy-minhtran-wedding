@@ -531,53 +531,25 @@
     // --- 1. TẠO HIỆU ỨNG RƠI ---
     const particles = ['💐', '🌹', '🌿','✨','☘️', '🌸']; // Bạn có thể thêm icon tùy thích
     
-    <script>
-    // --- Các đoạn code khác (như AOS.init, đếm ngược...) giữ nguyên ---
-
-    // DÁN ĐOẠN CODE MỚI CỦA BẠN VÀO ĐÂY
     function createParticle() {
         const p = document.createElement('div');
-        const types = ['leaf', 'heart', 'star'];
-        const type = types[Math.floor(Math.random() * types.length)];
+        const type = particles[Math.floor(Math.random() * particles.length)];
         
+        p.innerText = type;
         p.className = 'particle';
+        if (type === '✨') p.classList.add('bling');
         
-        if (type === 'leaf') {
-            p.innerHTML = '🍃'; // Bạn có thể thay bằng '🌿' hoặc '🍂' nếu muốn mảnh hơn
-            p.style.color = '#78a55a'; 
-        } else if (type === 'heart') {
-            p.innerHTML = '❤';
-            p.style.color = '#f3d1cd'; 
-        } else {
-            p.innerHTML = '✨';
-            p.style.color = '#d4af37'; 
-            p.classList.add('bling');
-        }
-        
-        p.style.position = 'fixed';
-        p.style.top = '-50px';
+        // Ngẫu nhiên vị trí, kích thước, thời gian rơi
         p.style.left = Math.random() * 100 + 'vw';
-        p.style.fontSize = (Math.random() * 10 + 15) + 'px';
+        p.style.fontSize = (Math.random() * 15 + 10) + 'px';
         p.style.opacity = Math.random() * 0.5 + 0.5;
-        p.style.zIndex = '9999';
-        p.style.pointerEvents = 'none';
+        p.style.animationDuration = (Math.random() * 3 + 4) + 's'; // Rơi trong 4-7s
         
-        const duration = (Math.random() * 3 + 5);
         document.body.appendChild(p);
-
-        setTimeout(() => {
-            p.style.transform = `translateY(110vh) rotate(${Math.random() * 360}deg)`;
-            p.style.transition = `all ${duration}s linear`;
-        }, 100);
         
-        setTimeout(() => { p.remove(); }, duration * 1000);
+        // Xóa sau khi rơi xong để nhẹ máy
+        setTimeout(() => { p.remove(); }, 7000);
     }
-
-    // QUAN TRỌNG: Phải có dòng này để kích hoạt hàm tạo hạt rơi
-    setInterval(createParticle, 500); 
-
-    // --- Các đoạn code Auto-scroll (nếu có) để phía dưới này ---
-</script>
     
     // Tạo phần tử rơi mỗi 500ms
     setInterval(createParticle, 500);
