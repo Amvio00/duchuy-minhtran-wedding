@@ -372,14 +372,25 @@
         <button class="btn-rsvp" id="openRSVP" data-aos="zoom-in">XÁC NHẬN THAM DỰ</button>
     </section>
 
-    <!-- ALBUM -->
+   <!-- ALBUM -->
     <section class="album-section" id="wedding-gallery">
         <h2 class="album-title" data-aos="fade-up">Album Ảnh Cưới</h2>
         <div class="photo-grid" data-aos="fade-up">
             <div class="photo-item" onclick="openLightbox(0)"><img src="1.jpg"></div>
             <div class="photo-item" onclick="openLightbox(1)"><img src="2.jpg"></div>
             <div class="photo-item" onclick="openLightbox(2)"><img src="3.jpg"></div>
+            <!-- Ô cuối cùng đại diện cho các ảnh còn lại -->
             <div class="photo-item photo-more" onclick="openLightbox(3)"><img src="4.jpg"></div>
+            
+            <!-- Các ảnh ẩn từ 5-10 để script có thể nhận diện khi bấm Next/Prev -->
+            <div style="display:none;">
+                <img src="5.jpg" onclick="openLightbox(4)">
+                <img src="6.jpg" onclick="openLightbox(5)">
+                <img src="7.jpg" onclick="openLightbox(6)">
+                <img src="8.jpg" onclick="openLightbox(7)">
+                <img src="9.jpg" onclick="openLightbox(8)">
+                <img src="10.jpg" onclick="openLightbox(9)">
+            </div>
         </div>
     </section>
 
