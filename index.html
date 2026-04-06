@@ -170,6 +170,12 @@
         }
         .address-text { font-size: 1.05rem; opacity: 0.9; line-height: 1.6; margin-bottom: 25px; }
 
+        /* --- DRESS CODE SECTION --- */
+        .dress-code-section { margin-top: 40px; margin-bottom: 40px; }
+        .dress-code-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 3px; color: var(--moss-green); margin-bottom: 20px; }
+        .color-palette { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+        .color-circle { width: 50px; height: 50px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
         .btn-direction {
             display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
             color: var(--moss-green); font-family: 'Playfair Display', serif;
@@ -226,6 +232,7 @@
             .cal-day, .cal-year { font-size: 2rem; } .venue-name { font-size: 1.5rem; }
             .name-display { font-size: 1.3rem; } .btn-direction { font-size: 1.1rem; }
             .photo-grid { gap: 10px; } #guest-name { min-width: 200px; font-size: 1.4rem; }
+            .color-circle { width: 40px; height: 40px; }
         }
         @media (min-width: 768px) { .couple-grid { flex-direction: row; max-width: 900px; } }
     </style>
@@ -297,7 +304,6 @@
         </div>
 
         <div class="invite-text" data-aos="fade-up">Trân trọng kính mời:</div>
-        <!-- Tên khách tự thay đổi theo Link -->
         <div id="guest-name" data-aos="fade-up">Quý Khách</div>
         
         <div class="family-join-text" data-aos="fade-up">
@@ -328,6 +334,18 @@
             <img src="icon_chi_duong.png" alt="Chỉ đường"> CHỈ ĐƯỜNG
         </a>
 
+        <!-- PHẦN DRESS CODE MỚI THÊM -->
+        <div class="dress-code-section" data-aos="fade-up">
+            <h3 class="dress-code-title">DRESS CODE</h3>
+            <div class="color-palette">
+                <div class="color-circle" style="background-color: #63402C;"></div> <!-- Nâu -->
+                <div class="color-circle" style="background-color: #000000;"></div> <!-- Đen -->
+                <div class="color-circle" style="background-color: #F3D1CD;"></div> <!-- Hồng nhạt -->
+                <div class="color-circle" style="background-color: #E6D8C5;"></div> <!-- Be -->
+                <div class="color-circle" style="background-color: #162B40;"></div> <!-- Xanh đen -->
+            </div>
+        </div>
+
         <div id="countdown" data-aos="fade-up" style="margin-top: 50px;">
             Cùng đếm ngược: <br>
             <span id="timer" style="font-weight: 600; color: var(--metallic-gold); font-size: 1.2rem;"></span>
@@ -336,7 +354,7 @@
         <button class="btn-rsvp" id="openRSVP" data-aos="zoom-in">XÁC NHẬN THAM DỰ</button>
     </section>
 
-    <!-- ALBUM & MODALS (GIỮ NGUYÊN) -->
+    <!-- ALBUM (GIỮ NGUYÊN) -->
     <section class="album-section" id="wedding-gallery">
         <h2 class="album-title" data-aos="fade-up">Album Ảnh Cưới</h2>
         <div class="photo-grid" data-aos="fade-up">
@@ -347,13 +365,7 @@
         </div>
     </section>
 
-    <div id="lightbox" class="lightbox">
-        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
-        <span class="nav-btn prev-btn" onclick="changeImage(-1)">❮</span>
-        <img class="lightbox-content" id="lightbox-img">
-        <span class="nav-btn next-btn" onclick="changeImage(1)">❯</span>
-    </div>
-
+    <!-- GUESTBOOK (GIỮ NGUYÊN) -->
     <section class="guestbook-section" id="guestbook" data-aos="fade-up">
         <div class="guestbook-container">
             <h2 class="guestbook-title">Sổ Lưu Bút</h2>
@@ -365,28 +377,45 @@
         </div>
     </section>
 
-    <!-- IFRAME & MODAL RSVP (GIỮ NGUYÊN) -->
+    <!-- MODAL RSVP ĐÃ CẬP NHẬT -->
     <div id="rsvpModal" class="modal-rsvp">
         <div class="modal-rsvp-content">
             <span id="closeRSVP" class="close-modal" style="color: #333;">&times;</span>
             <h2 style="color: var(--moss-green);">Xác nhận tham dự</h2>
+            <!-- LƯU Ý: Thay action link Google Form của bạn vào đây -->
             <form id="weddingForm" action="https://docs.google.com/forms/d/e/1FAIpSdc3WO7y75vvNHK9YRHlW9e4l0iE1jrIZKZpMJ9ejt-kuw9iw/formResponse" method="POST" target="hidden_iframe">
+                <!-- Tên khách -->
                 <input type="text" name="entry.568495053" style="width: 100%; padding: 15px; border: 1px solid #eee; border-radius: 15px; margin-bottom: 20px;" placeholder="Nhập tên của bạn" required>
+                
                 <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px;">
-                    <label class="option-item"><input type="radio" name="entry.923450313" value="Tôi sẽ đến" required><div class="custom-check-rsvp">✓</div><span>Tôi sẽ đến</span></label>
-                    <label class="option-item"><input type="radio" name="entry.923450313" value="Rất tiếc tôi không thể đến"><div class="custom-check-rsvp">✕</div><span>Rất tiếc tôi không thể đến</span></label>
+                    <label class="option-item">
+                        <input type="radio" name="entry.923450313" value="Tôi sẽ đến" required>
+                        <div class="custom-check-rsvp">✓</div><span>Tôi sẽ đến</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="entry.923450313" value="Rất tiếc tôi không thể đến">
+                        <div class="custom-check-rsvp">✕</div><span>Rất tiếc tôi không thể đến</span>
+                    </label>
+                    <!-- CÂU TRẢ LỜI MỚI THÊM -->
+                    <label class="option-item">
+                        <input type="radio" name="entry.923450313" value="Chưa chắc chắn">
+                        <div class="custom-check-rsvp">?</div><span>Chưa chắc chắn</span>
+                    </label>
                 </div>
                 <button type="submit" style="width: 100%; background: var(--moss-green); color: white; padding: 18px; border-radius: 18px; border: none; font-weight: 700;">GỬI XÁC NHẬN</button>
             </form>
         </div>
     </div>
 
+    <!-- CÁC PHẦN ẨN VÀ SCRIPT (GIỮ NGUYÊN) -->
     <iframe name="hidden_iframe" style="display:none;" onload="if(submitted){alert('Cảm ơn bạn!'); document.getElementById('rsvpModal').style.display='none'; submitted=false;}"></iframe>
     <iframe name="wish_hidden_iframe" style="display:none;" onload="if(wishSubmitted){alert('Cảm ơn lời chúc của bạn!'); document.getElementById('wishForm').reset(); wishSubmitted=false;}"></iframe>
 
     <div id="lightbox" class="lightbox">
         <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <span class="nav-btn prev-btn" onclick="changeImage(-1)">❮</span>
         <img class="lightbox-content" id="lightbox-img">
+        <span class="nav-btn next-btn" onclick="changeImage(1)">❯</span>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -394,21 +423,22 @@
         AOS.init({ duration: 1200, once: true });
         let submitted = false, wishSubmitted = false;
 
-        // --- SCRIPT QUAN TRỌNG: LẤY TÊN KHÁCH TỪ LINK ---
         const urlParams = new URLSearchParams(window.location.search);
         const guest = urlParams.get('guest');
         if (guest) {
             document.getElementById("guest-name").innerText = guest;
         }
 
-        // Countdown
         const weddingDate = new Date("May 9, 2026 18:30:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
             const d = weddingDate - now;
-            document.getElementById("timer").innerHTML = Math.floor(d/(1000*60*60*24)) + " ngày " + Math.floor((d%(1000*60*60*24))/(1000*60*60)) + ":" + Math.floor((d%(1000*60*60))/(1000*60)) + ":" + Math.floor((d%(1000*60))/1000);
+            if (d > 0) {
+                document.getElementById("timer").innerHTML = Math.floor(d/(1000*60*60*24)) + " ngày " + Math.floor((d%(1000*60*60*24))/(1000*60*60)) + ":" + Math.floor((d%(1000*60*60))/(1000*60)) + ":" + Math.floor((d%(1000*60))/1000);
+            }
         }, 1000);
-        const images = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg", "10.jpg"];
+
+        const images = ["1.jpg", "2.jpg", "3.jpg", "4.jpg"];
         let currentIndex = 0;
 
         function openLightbox(index) {
@@ -428,7 +458,6 @@
             document.getElementById("lightbox-img").src = images[currentIndex];
         }
 
-        // RSVP & Forms
         const modal = document.getElementById("rsvpModal");
         document.getElementById("openRSVP").onclick = () => modal.style.display = "flex";
         document.getElementById("closeRSVP").onclick = () => modal.style.display = "none";
