@@ -651,61 +651,99 @@
         window.addEventListener('mousedown', stopAutoScroll);
         startAutoScroll();
     </script>
-    <!-- Cấu trúc Audio ẩn -->
+  <!-- Cấu trúc Audio ẩn -->
 <audio id="weddingMusic" loop>
     <source id="musicSource" type="audio/mpeg">
-    Trình duyệt của bạn không hỗ trợ phát nhạc.
 </audio>
 
-<!-- Nút điều khiển nhạc (Loa) -->
-<div id="musicControl" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; cursor: pointer; background: rgba(255,255,255,0.8); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
-    <span id="musicIcon" style="font-size: 20px;">🔇</span>
+<!-- Nút điều khiển Nốt nhạc quay tròn -->
+<div id="musicControl" class="music-note-wrapper">
+    <div id="musicIcon" class="music-note">♫</div>
 </div>
 
-<script>
-    // Danh sách 3 bài hát của bạn
-    const songList = [
-        'nhac1.mp3',
-        'nhac2.mp3',
-        'nhac3.mp3'
-    ];
+<style>
+    .music-note-wrapper {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 10000;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid var(--moss-green);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
 
+    .music-note {
+        font-size: 24px;
+        color: var(--moss-green);
+        line-height: 1;
+        transition: all 0.3s ease;
+    }
+
+    /* Hiệu ứng xoay tròn */
+    .spinning {
+        animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    /* Hiệu ứng mờ khi dừng */
+    .paused {
+        opacity: 0.6;
+    }
+</style>
+
+<script>
+    const songList = ['nhac1.mp3', 'nhac2.mp3', 'nhac3.mp3'];
     const audio = document.getElementById('weddingMusic');
     const source = document.getElementById('musicSource');
     const musicControl = document.getElementById('musicControl');
     const musicIcon = document.getElementById('musicIcon');
 
-    // Chọn ngẫu nhiên 1 bài từ danh sách
-    const randomSong = songList[Math.floor(Math.random() * songList.length)];
-    source.src = randomSong;
+    // Chọn ngẫu nhiên bài hát
+    source.src = songList[Math.floor(Math.random() * songList.length)];
     audio.load();
 
-    // Xử lý bật/tắt nhạc
     let isPlaying = false;
 
-    musicControl.addEventListener('click', function() {
+    function playAudio() {
+        audio.play().then(() => {
+            isPlaying = true;
+            musicIcon.classList.add('spinning');
+            musicIcon.classList.remove('paused');
+        }).catch(e => console.log("Chờ tương tác người dùng để phát nhạc"));
+    }
+
+    function toggleAudio() {
         if (isPlaying) {
             audio.pause();
-            musicIcon.innerText = '🔇';
+            musicIcon.classList.remove('spinning');
+            musicIcon.classList.add('paused');
         } else {
-            audio.play();
-            musicIcon.innerText = '🔊';
+            playAudio();
         }
         isPlaying = !isPlaying;
+    }
+
+    // Sự kiện click vào nút
+    musicControl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleAudio();
     });
 
-    // Tự động phát nhạc (Lưu ý: Hầu hết trình duyệt hiện nay chặn tự động phát có âm thanh 
-    // trừ khi người dùng đã tương tác với trang. Nhạc sẽ bắt đầu khi khách click vào trang lần đầu)
-    document.addEventListener('click', function() {
-        if (!isPlaying) {
-            audio.play().then(() => {
-                isPlaying = true;
-                musicIcon.innerText = '🔊';
-            }).catch(error => {
-                console.log("Tự động phát bị chặn, chờ người dùng tương tác.");
-            });
-        }
-    }, { once: true }); // Chỉ chạy 1 lần duy nhất khi click
+    // Mẹo "Autoplay": Phát ngay khi người dùng chạm vào bất cứ đâu trên trang
+    document.addEventListener('touchstart', () => { if(!isPlaying) playAudio(); }, { once: true });
+    document.addEventListener('mousedown', () => { if(!isPlaying) playAudio(); }, { once: true });
+    document.addEventListener('scroll', () => { if(!isPlaying) playAudio(); }, { once: true });
 </script>
 </body>
 </html>
