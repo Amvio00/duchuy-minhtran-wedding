@@ -5,250 +5,194 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đức Huy & Minh Trân Wedding</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Fonts & Thư viện hiệu ứng -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         :root {
             --primary-dark: #7a2b2d;
             --moss-green: #6b705c;
-            --glass-white: rgba(255, 255, 255, 0.7);
-            --gold-line: #c4a484;
+            --gold: #c4a484;
+            --bg-light: #fdfbf7;
         }
 
-        body, html {
-            margin: 0; padding: 0;
-            font-family: 'Quicksand', sans-serif;
-            background-color: #fdfbf7;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+        * { box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; font-family: 'Quicksand', sans-serif; background: var(--bg-light); overflow-x: hidden; }
 
-        /* --- 1. MÀN HÌNH CHÀO (OVERLAY) --- */
+        /* --- 1. HIỆU ỨNG CÁNH HOA --- */
+        #petal-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+
+        /* --- 2. MÀN HÌNH CHÀO (OVERLAY) --- */
         #wedding-overlay {
-            position: fixed; inset: 0;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 10000;
-            background-image: url('anhbia.jpg'); 
-            background-size: cover;
-            background-position: center;
-            transition: opacity 1.2s ease, transform 1.2s ease;
+            position: fixed; inset: 0; display: flex; justify-content: center; align-items: center;
+            z-index: 10000; background: url('anhbia.jpg') center/cover no-repeat;
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .main-card {
-            width: 85%; max-width: 420px;
-            padding: 10px; border: 1px solid var(--gold-line);
-            border-radius: 25px; box-shadow: 0 15px 45px rgba(0,0,0,0.3);
-            background: rgba(255,255,255,0.1);
+        .overlay-card {
+            width: 85%; max-width: 400px; padding: 10px; border: 1px solid var(--gold); border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); text-align: center;
         }
+        .overlay-inner { background: rgba(255, 255, 255, 0.6); padding: 40px 20px; border-radius: 15px; }
+        .names-big { font-family: 'Great Vibes'; font-size: 3.5rem; color: #2d3826; margin: 10px 0; }
+        .guest-tag { background: var(--primary-dark); color: white; padding: 8px 20px; border-radius: 20px; display: inline-block; margin: 20px 0; font-weight: 600; }
+        .btn-open { background: var(--primary-dark); color: white; border: none; padding: 15px 40px; border-radius: 30px; cursor: pointer; font-size: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-        .glass-content {
-            background: var(--glass-white);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            padding: 40px 20px; border-radius: 20px; text-align: center;
-        }
+        /* --- 3. NỘI DUNG CHÍNH --- */
+        #main-content { display: none; opacity: 0; transition: opacity 1.5s; }
+        section { padding: 60px 20px; text-align: center; max-width: 600px; margin: 0 auto; }
+        h2.section-title { font-family: 'Great Vibes'; font-size: 3rem; color: var(--primary-dark); margin-bottom: 30px; }
 
-        .names-overlay {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.2rem; color: #2d3826; 
-            margin: 5px 0; line-height: 1.1;
-        }
+        /* Album ảnh */
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .gallery-grid img { width: 100%; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
 
-        .guest-box {
-            background: rgba(122, 43, 45, 0.12);
-            color: var(--primary-dark);
-            padding: 10px 20px; border-radius: 30px;
-            display: inline-block; font-weight: 700;
-            margin: 15px 0; min-width: 160px;
-        }
-
-        .btn-open {
-            background-color: var(--primary-dark);
-            color: white; border: none;
-            padding: 14px 55px; border-radius: 30px;
-            font-size: 1rem; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(122, 43, 45, 0.4);
-            margin-top: 10px; transition: transform 0.3s;
-        }
-
-        .btn-open:active { transform: scale(0.95); }
-
-        /* --- 2. CÁNH HOA & NHẠC --- */
-        #petal-canvas {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none; z-index: 9999;
-        }
-
-        .music-note-wrapper {
-            position: fixed; bottom: 25px; right: 25px;
-            z-index: 9000; width: 45px; height: 45px;
-            background: white; border: 1px solid var(--moss-green);
-            border-radius: 50%; display: none; /* Hiện sau khi mở */
-            align-items: center; justify-content: center; cursor: pointer;
-        }
-        .spinning { animation: spin 4s linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* --- 3. NỘI DUNG THIỆP CHÍNH --- */
-        #main-invitation {
-            display: none; opacity: 0;
-            transition: opacity 1.5s ease;
-        }
-
-        /* Phần Lịch */
-        .calendar-container {
-            max-width: 400px; margin: 50px auto;
-            background: white; padding: 20px;
-            border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .img-top-calendar { width: 100%; border-radius: 10px; margin-bottom: 20px; }
-        .cal-header { position: relative; height: 80px; }
-        .cal-year { font-size: 4rem; color: #f0f0f0; position: absolute; width: 100%; top: 0; z-index: 1; font-weight: 800; }
-        .cal-month { font-family: 'Great Vibes'; font-size: 2.5rem; color: var(--moss-green); position: relative; z-index: 2; padding-top: 20px; }
+        /* Lịch */
+        .calendar-box { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-top: 20px; }
-        .weekday { font-weight: 700; color: var(--moss-green); font-size: 0.8rem; }
-        .date { font-size: 0.9rem; padding: 5px; color: #555; }
-        .active { background: var(--moss-green); color: white; border-radius: 50%; font-weight: bold; }
+        .day { font-size: 0.9rem; padding: 8px; color: #666; }
+        .day.active { background: var(--moss-green); color: white; border-radius: 50%; font-weight: bold; }
+        .weekday { font-weight: 700; color: var(--moss-green); }
 
-        .stage-exit { opacity: 0 !important; pointer-events: none; transform: translateY(-50px); }
+        /* Nốt nhạc */
+        .music-btn { position: fixed; bottom: 20px; right: 20px; z-index: 9000; width: 50px; height: 50px; background: white; border-radius: 50%; display: none; align-items: center; justify-content: center; box-shadow: 0 3px 15px rgba(0,0,0,0.2); cursor: pointer; }
+        .spinning { animation: rotate 4s linear infinite; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* Tiện ích khác */
+        .map-frame { width: 100%; height: 250px; border-radius: 15px; border: none; margin-top: 20px; }
+        .footer { padding: 40px; font-size: 0.8rem; color: #888; background: #f4f1ea; }
     </style>
 </head>
-<body style="overflow: hidden;"> <!-- Khóa cuộn lúc đầu -->
+<body style="overflow: hidden;">
 
     <canvas id="petal-canvas"></canvas>
 
-    <!-- AUDIO -->
-    <audio id="weddingMusic" loop>
-        <source id="musicSource" type="audio/mpeg">
-    </audio>
+    <!-- Nhạc ẩn -->
+    <audio id="weddingMusic" loop><source id="musicSource" type="audio/mpeg"></audio>
 
-    <!-- OVERLAY -->
+    <!-- Màn hình mở đầu -->
     <div id="wedding-overlay">
-        <div class="main-card" data-aos="zoom-in">
-            <div class="glass-content">
-                <p style="letter-spacing: 3px; font-size: 0.7rem; color: #666;">WEDDING INVITATION</p>
-                <div class="names-overlay">Đức Huy</div>
-                <div style="font-family: 'Great Vibes'; font-size: 1.5rem; color: var(--gold-line);">&</div>
-                <div class="names-overlay">Minh Trân</div>
-                
-                <p style="font-size: 0.8rem; font-weight: 600; margin-top: 20px;">THÂN MỜI</p>
-                <div class="guest-box" id="guest-name-overlay">Quý Khách</div>
+        <div class="overlay-card" data-aos="zoom-in">
+            <div class="overlay-inner">
+                <p style="letter-spacing: 3px;">WEDDING INVITATION</p>
+                <div class="names-big">Đức Huy</div>
+                <div style="font-family: 'Great Vibes'; font-size: 1.5rem;">&</div>
+                <div class="names-big">Minh Trân</div>
+                <p>Trân trọng kính mời</p>
+                <div class="guest-tag" id="guest-name-1">Quý Khách</div>
                 <br>
-                <button class="btn-open" onclick="openWedding()">Mở thiệp</button>
+                <button class="btn-open" onclick="startWedding()">Mở Thiệp Trân Trọng</button>
             </div>
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main-invitation">
-        <div id="musicControl" class="music-note-wrapper">
-            <div id="musicIcon" class="music-note spinning" style="font-size: 20px; color: var(--moss-green);">♫</div>
+    <!-- Nội dung thiệp chính -->
+    <div id="main-content">
+        <div class="music-btn" id="musicToggle" onclick="toggleMusic()">
+            <div id="musicIcon" class="spinning" style="font-size: 24px; color: var(--moss-green);">♫</div>
         </div>
 
-        <section style="padding: 80px 20px; text-align: center;">
-            <div data-aos="fade-up">
-                <p style="letter-spacing: 5px; color: var(--moss-green);">TRÂN TRỌNG KÍNH MỜI</p>
-                <h2 id="guest-name-main" style="font-family: 'Great Vibes'; font-size: 3rem; color: var(--primary-dark);">Quý Khách</h2>
-                <p style="line-height: 1.8;">Đến dự buổi tiệc chung vui cùng gia đình chúng tôi tại...</p>
-            </div>
+        <!-- Section 1: Lời mời -->
+        <section data-aos="fade-up">
+            <h2 class="section-title">Trân Trọng Kính Mời</h2>
+            <p>Thân mời <strong id="guest-name-2" style="font-size: 1.2rem; color: var(--primary-dark);">Quý Khách</strong></p>
+            <p>Đến dự buổi tiệc chung vui cùng gia đình chúng tôi tại: <br>
+            <strong>Trung tâm Hội nghị Tiệc cưới ABC</strong><br>
+            Số 123, Đường đường, Quận quận, TP. Hồ Chí Minh</p>
+        </section>
 
-            <!-- PHẦN LỊCH -->
-            <div class="calendar-container" data-aos="fade-up">
-                <img src="anhganthiep.webp" class="img-top-calendar" alt="Wedding">
-                <div class="cal-header">
-                    <div class="cal-year">2026</div>
-                    <div class="cal-month">May</div>
-                </div>
-                <div class="cal-grid">
-                    <div class="weekday">T2</div><div class="weekday">T3</div><div class="weekday">T4</div><div class="weekday">T5</div><div class="weekday">T6</div><div class="weekday">T7</div><div class="weekday">CN</div>
-                    <!-- Tháng 5/2026 bắt đầu từ Thứ 6 -->
-                    <div></div><div></div><div></div><div></div>
-                    <div class="date">1</div><div class="date">2</div><div class="date">3</div>
-                    <div class="date">4</div><div class="date">5</div><div class="date">6</div><div class="date">7</div><div class="date">8</div><div class="date active">9</div><div class="date">10</div>
-                    <div class="date">11</div><div class="date">12</div><div class="date">13</div><div class="date">14</div><div class="date">15</div><div class="date">16</div><div class="date">17</div>
-                    <div class="date">18</div><div class="date">19</div><div class="date">20</div><div class="date">21</div><div class="date">22</div><div class="date">23</div><div class="date">24</div>
-                    <div class="date">25</div><div class="date">26</div><div class="date">27</div><div class="date">28</div><div class="date">29</div><div class="date">30</div><div class="date">31</div>
-                </div>
-            </div>
-
-            <div style="height: 500px;">
-                <p data-aos="fade-up">Cảm ơn bạn rất nhiều!</p>
+        <!-- Section 2: Album ảnh -->
+        <section data-aos="fade-up">
+            <h2 class="section-title">Wedding Gallery</h2>
+            <div class="gallery-grid">
+                <img src="https://picsum.photos/400/600?random=1" alt="Ảnh 1">
+                <img src="https://picsum.photos/400/600?random=2" alt="Ảnh 2">
+                <img src="https://picsum.photos/400/400?random=3" alt="Ảnh 3">
+                <img src="https://picsum.photos/400/400?random=4" alt="Ảnh 4">
             </div>
         </section>
+
+        <!-- Section 3: Lịch -->
+        <section data-aos="fade-up">
+            <div class="calendar-box">
+                <img src="anhganthiep.webp" style="width: 100%; border-radius: 10px; margin-bottom: 15px;">
+                <div style="font-family: 'Great Vibes'; font-size: 2.5rem; color: var(--moss-green);">May 2026</div>
+                <div class="cal-grid">
+                    <div class="weekday">T2</div><div class="weekday">T3</div><div class="weekday">T4</div><div class="weekday">T5</div><div class="weekday">T6</div><div class="weekday">T7</div><div class="weekday">CN</div>
+                    <div></div><div></div><div></div><div></div>
+                    <div class="day">1</div><div class="day">2</div><div class="day">3</div>
+                    <div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day active">9</div><div class="day">10</div>
+                    <div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div>
+                    <div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div>
+                    <div class="day">25</div><div class="day">26</div><div class="day">27</div><div class="day">28</div><div class="day">29</div><div class="day">30</div><div class="day">31</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Bản đồ -->
+        <section data-aos="fade-up">
+            <h2 class="section-title">Đường Đi</h2>
+            <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4952003889163!2d106.69914441474895!3d10.77334799232371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f474364e3cb%3A0x133403328f23719b!2zRGluaCDEkOG7WMgTOG6rXA!5e0!3m2!1svi!2s!4v1650000000000!5m2!1svi!2s"></iframe>
+        </section>
+
+        <div class="footer">
+            DESIGNED FOR THE SPECIAL DAY OF MINH TRAN & DUC HUY © 2026
+        </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // 1. TÊN KHÁCH TỪ LINK
+        // --- 1. LẤY TÊN KHÁCH ---
         const urlParams = new URLSearchParams(window.location.search);
-        const guestName = urlParams.get('to') || "Quý Khách";
-        document.getElementById('guest-name-overlay').innerText = guestName;
-        document.getElementById('guest-name-main').innerText = guestName;
+        const to = urlParams.get('to') || "Quý Khách";
+        document.getElementById('guest-name-1').innerText = to;
+        document.getElementById('guest-name-2').innerText = to;
 
-        // 2. NHẠC NGẪU NHIÊN
+        // --- 2. NHẠC NGẪU NHIÊN ---
         const songs = ['nhac1.mp3', 'nhac2.mp3', 'nhac3.mp3'];
         const audio = document.getElementById('weddingMusic');
         document.getElementById('musicSource').src = songs[Math.floor(Math.random() * songs.length)];
         audio.load();
 
-        // 3. MỞ THIỆP
-        function openWedding() {
+        // --- 3. MỞ THIỆP ---
+        function startWedding() {
             audio.play();
-            document.getElementById('wedding-overlay').classList.add('stage-exit');
-            document.getElementById('main-invitation').style.display = 'block';
-            document.getElementById('musicControl').style.display = 'flex';
+            document.getElementById('wedding-overlay').style.opacity = '0';
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('musicToggle').style.display = 'flex';
             
             setTimeout(() => {
-                document.getElementById('main-invitation').style.opacity = '1';
-                document.body.style.overflow = 'auto';
                 document.getElementById('wedding-overlay').style.display = 'none';
+                document.getElementById('main-content').style.opacity = '1';
+                document.body.style.overflow = 'auto';
                 AOS.init({ duration: 1000, once: true });
-            }, 1000);
+            }, 1200);
         }
 
-        // TẮT/MỞ NHẠC
-        document.getElementById('musicControl').addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (audio.paused) {
-                audio.play();
-                document.getElementById('musicIcon').classList.add('spinning');
-            } else {
-                audio.pause();
-                document.getElementById('musicIcon').classList.remove('spinning');
-            }
-        });
+        function toggleMusic() {
+            if(audio.paused) { audio.play(); document.getElementById('musicIcon').classList.add('spinning'); }
+            else { audio.pause(); document.getElementById('musicIcon').classList.remove('spinning'); }
+        }
 
-        // 4. CÁNH HOA RƠI
+        // --- 4. CÁNH HOA ---
         const canvas = document.getElementById('petal-canvas');
         const ctx = canvas.getContext('2d');
         let w, h, petals = [];
-        function initCanvas() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
-        window.addEventListener('resize', initCanvas); initCanvas();
-
+        function initC() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+        window.addEventListener('resize', initC); initC();
         class Petal {
-            constructor() {
-                this.x = Math.random() * w; this.y = Math.random() * h - h;
-                this.size = Math.random() * 7 + 5; this.speed = Math.random() * 1 + 1;
-                this.angle = Math.random() * 360; this.spin = Math.random() * 2 - 1;
-            }
-            update() {
-                this.y += this.speed; this.angle += this.spin;
-                if (this.y > h) { this.y = -20; this.x = Math.random() * w; }
-            }
+            constructor() { this.x = Math.random()*w; this.y = Math.random()*h-h; this.s = Math.random()*7+5; this.sp = Math.random()*1+1; this.a = Math.random()*360; }
             draw() {
-                ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle * Math.PI / 180);
-                ctx.beginPath(); ctx.ellipse(0, 0, this.size, this.size/1.5, 0, 0, Math.PI * 2);
+                ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.a*Math.PI/180);
+                ctx.beginPath(); ctx.ellipse(0, 0, this.s, this.s/1.5, 0, 0, Math.PI*2);
                 ctx.fillStyle = 'rgba(255, 183, 197, 0.6)'; ctx.fill(); ctx.restore();
             }
+            update() { this.y += this.sp; if(this.y > h) { this.y = -20; this.x = Math.random()*w; } }
         }
-        for (let i = 0; i < 35; i++) petals.push(new Petal());
-        function animate() { ctx.clearRect(0, 0, w, h); petals.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
-        animate();
-
-        // Khởi tạo AOS cho overlay
-        AOS.init();
+        for(let i=0; i<30; i++) petals.push(new Petal());
+        function anim() { ctx.clearRect(0,0,w,h); petals.forEach(p=>{ p.draw(); p.update(); }); requestAnimationFrame(anim); }
+        anim();
     </script>
 </body>
 </html>
