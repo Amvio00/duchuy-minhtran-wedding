@@ -278,51 +278,6 @@
     from { opacity: 0.5; transform: scale(0.8) translateY(0); }
     to { opacity: 1; transform: scale(1.2) translateY(5px); }
 }
-        /* --- CALENDAR AT BOTTOM --- */
-.calendar-container {
-    max-width: 350px;
-    margin: 60px auto 20px auto; /* Khoảng cách phía trên rộng ra cho thoáng */
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 20px;
-    text-align: center;
-    position: relative;
-    z-index: 10;
-}
-
-.cal-header { position: relative; margin-bottom: 25px; }
-.cal-year-bg { font-size: 5.5rem; font-weight: 700; color: #78a55a; opacity: 0.15; line-height: 1; }
-.cal-month-fg { 
-    font-family: 'Great Vibes', cursive; 
-    font-size: 3.2rem; color: #4a5d4a; 
-    position: absolute; top: 50%; left: 50%; 
-    transform: translate(-50%, -15%); width: 100%; 
-}
-
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-.cal-weekday { font-size: 0.7rem; font-weight: 600; color: #78a55a; margin-bottom: 10px; }
-.cal-date { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; color: #333; }
-
-.cal-date.active {
-    background-color: #78a55a; /* Màu xanh rêu */
-    color: #fff;
-    font-weight: bold;
-    border-radius: 50%;
-    box-shadow: 0 3px 8px rgba(120, 165, 90, 0.4);
-}
-
-.cal-quote { margin-top: 20px; font-style: italic; font-size: 0.9rem; color: #4a5d4a; }
-
-/* --- FOOTER LINE --- */
-.footer-credit {
-    text-align: center;
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    color: #888;
-    padding: 40px 0 20px 0;
-    font-family: 'Montserrat', sans-serif;
-    text-transform: uppercase;
-}
     </style>
 </head>
 <body>
@@ -610,54 +565,26 @@
         autoScrollTimer = requestAnimationFrame(startAutoScroll);
     }
 
-   <!-- 1. PHẦN NỘI DUNG HIỂN THỊ (LỊCH VÀ CREDIT) PHẢI NẰM TRÊN -->
-<section id="final-section" style="padding-bottom: 30px;">
-    <div class="calendar-container" data-aos="zoom-in">
-        <div class="cal-header">
-            <div class="cal-year-bg">2026</div>
-            <div class="cal-month-fg">May</div>
-        </div>
+    // Dừng cuộn khi có tương tác (chạm, cuộn chuột, click)
+    function stopAutoScroll() {
+        isAutoScrolling = false;
+        cancelAnimationFrame(autoScrollTimer);
         
-        <div class="cal-grid">
-            <div class="cal-weekday">T2</div>
-            <div class="cal-weekday">T3</div>
-            <div class="cal-weekday">T4</div>
-            <div class="cal-weekday">T5</div>
-            <div class="cal-weekday">T6</div>
-            <div class="cal-weekday">T7</div>
-            <div class="cal-weekday">CN</div>
+        // Sau 5 giây không làm gì thì tự động cuộn lại
+        clearTimeout(window.resumeTimer);
+        window.resumeTimer = setTimeout(() => {
+            isAutoScrolling = true;
+            startAutoScroll();
+        }, 5000); 
+    }
 
-            <!-- Căn lề tháng 5/2026 -->
-            <div></div><div></div><div></div><div></div>
-            <div class="cal-date">1</div><div class="cal-date">2</div><div class="cal-date">3</div>
-            <div class="cal-date">4</div><div class="cal-date">5</div><div class="cal-date">6</div>
-            <div class="cal-date">7</div><div class="cal-date">8</div><div class="cal-date active">9</div>
-            <div class="cal-date">10</div><div class="cal-date">11</div><div class="cal-date">12</div>
-            <div class="cal-date">13</div><div class="cal-date">14</div><div class="cal-date">15</div>
-            <div class="cal-date">16</div><div class="cal-date">17</div>
-            <div class="cal-date" style="opacity: 0.3;">...</div>
-            <div class="cal-date" style="opacity: 0.3;">31</div>
-        </div>
+    // Lắng nghe các sự kiện tương tác của người dùng
+    window.addEventListener('wheel', stopAutoScroll);
+    window.addEventListener('touchstart', stopAutoScroll);
+    window.addEventListener('mousedown', stopAutoScroll);
 
-        <div class="cal-quote">
-            "We'll be sharing a home and a life together in"
-        </div>
-    </div>
-
-    <div class="footer-credit">
-        DESIGNED FOR THE SPECIAL DAY OF MINH TRAN & DUC HUY © 2026
-    </div>
-</section>
-
-<!-- 2. PHẦN CODE HIỆU ỨNG (SCRIPT) PHẢI NẰM DƯỚI CÙNG -->
-<script>
-    // --- Code hạt rơi và Auto-scroll của bạn để ở đây ---
-    // (Đoạn function createParticle, startAutoScroll... mà mình đã hướng dẫn)
-
-    // Đảm bảo có dòng kích hoạt này bên trong thẻ script
+    // Bắt đầu chạy
     startAutoScroll();
-    setInterval(createParticle, 500);
 </script>
-
 </body>
 </html>
