@@ -651,5 +651,61 @@
         window.addEventListener('mousedown', stopAutoScroll);
         startAutoScroll();
     </script>
+    <!-- Cấu trúc Audio ẩn -->
+<audio id="weddingMusic" loop>
+    <source id="musicSource" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ phát nhạc.
+</audio>
+
+<!-- Nút điều khiển nhạc (Loa) -->
+<div id="musicControl" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; cursor: pointer; background: rgba(255,255,255,0.8); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+    <span id="musicIcon" style="font-size: 20px;">🔇</span>
+</div>
+
+<script>
+    // Danh sách 3 bài hát của bạn
+    const songList = [
+        'nhac1.mp3',
+        'nhac2.mp3',
+        'nhac3.mp3'
+    ];
+
+    const audio = document.getElementById('weddingMusic');
+    const source = document.getElementById('musicSource');
+    const musicControl = document.getElementById('musicControl');
+    const musicIcon = document.getElementById('musicIcon');
+
+    // Chọn ngẫu nhiên 1 bài từ danh sách
+    const randomSong = songList[Math.floor(Math.random() * songList.length)];
+    source.src = randomSong;
+    audio.load();
+
+    // Xử lý bật/tắt nhạc
+    let isPlaying = false;
+
+    musicControl.addEventListener('click', function() {
+        if (isPlaying) {
+            audio.pause();
+            musicIcon.innerText = '🔇';
+        } else {
+            audio.play();
+            musicIcon.innerText = '🔊';
+        }
+        isPlaying = !isPlaying;
+    });
+
+    // Tự động phát nhạc (Lưu ý: Hầu hết trình duyệt hiện nay chặn tự động phát có âm thanh 
+    // trừ khi người dùng đã tương tác với trang. Nhạc sẽ bắt đầu khi khách click vào trang lần đầu)
+    document.addEventListener('click', function() {
+        if (!isPlaying) {
+            audio.play().then(() => {
+                isPlaying = true;
+                musicIcon.innerText = '🔊';
+            }).catch(error => {
+                console.log("Tự động phát bị chặn, chờ người dùng tương tác.");
+            });
+        }
+    }, { once: true }); // Chỉ chạy 1 lần duy nhất khi click
+</script>
 </body>
 </html>
