@@ -253,6 +253,31 @@
             .color-circle { width: 45px; height: 45px; }
         }
         @media (min-width: 768px) { .couple-grid { flex-direction: row; max-width: 900px; } }
+        /* --- EFFECT: FALLING ELEMENTS --- */
+.particle {
+    position: fixed;
+    top: -50px;
+    z-index: 9999;
+    pointer-events: none;
+    user-select: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+
+/* Hiệu ứng lấp lánh riêng cho ngôi sao */
+.bling {
+    animation: fall linear forwards, twinkle 1.5s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.5; transform: scale(0.8) translateY(0); }
+    to { opacity: 1; transform: scale(1.2) translateY(5px); }
+}
     </style>
 </head>
 <body>
