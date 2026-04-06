@@ -651,14 +651,14 @@
         window.addEventListener('mousedown', stopAutoScroll);
         startAutoScroll();
     </script>
-  <!-- Cấu trúc Audio ẩn -->
-<audio id="weddingMusic" loop>
+ <!-- Cấu trúc Audio ẩn với thuộc tính autoplay -->
+<audio id="weddingMusic" loop autoplay>
     <source id="musicSource" type="audio/mpeg">
 </audio>
 
-<!-- Nút điều khiển Nốt nhạc quay tròn -->
+<!-- Nốt nhạc quay tròn -->
 <div id="musicControl" class="music-note-wrapper">
-    <div id="musicIcon" class="music-note">♫</div>
+    <div id="musicIcon" class="music-note spinning">♫</div>
 </div>
 
 <style>
@@ -667,7 +667,6 @@
         bottom: 25px;
         right: 25px;
         z-index: 10000;
-        cursor: pointer;
         width: 50px;
         height: 50px;
         background: rgba(255, 255, 255, 0.9);
@@ -677,73 +676,68 @@
         align-items: center;
         justify-content: center;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        cursor: pointer;
     }
-
     .music-note {
         font-size: 24px;
         color: var(--moss-green);
-        line-height: 1;
-        transition: all 0.3s ease;
     }
-
-    /* Hiệu ứng xoay tròn */
     .spinning {
         animation: spin 3s linear infinite;
     }
-
     @keyframes spin {
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
     }
-
-    /* Hiệu ứng mờ khi dừng */
-    .paused {
-        opacity: 0.6;
-    }
+    .paused { animation-play-state: paused; opacity: 0.5; }
 </style>
 
 <script>
     const songList = ['nhac1.mp3', 'nhac2.mp3', 'nhac3.mp3'];
     const audio = document.getElementById('weddingMusic');
     const source = document.getElementById('musicSource');
-    const musicControl = document.getElementById('musicControl');
     const musicIcon = document.getElementById('musicIcon');
 
-    // Chọn ngẫu nhiên bài hát
+    // Chọn bài ngẫu nhiên
     source.src = songList[Math.floor(Math.random() * songList.length)];
     audio.load();
 
-    let isPlaying = false;
-
-    function playAudio() {
+    // Hàm phát nhạc cực mạnh
+    function forcePlay() {
         audio.play().then(() => {
-            isPlaying = true;
             musicIcon.classList.add('spinning');
-            musicIcon.classList.remove('paused');
-        }).catch(e => console.log("Chờ tương tác người dùng để phát nhạc"));
+        }).catch(e => {
+            // Nếu vẫn bị chặn, nó sẽ thử lại liên tục mỗi khi có chuyển động nhỏ nhất
+            console.log("Đang chờ trình duyệt cấp quyền phát nhạc...");
+        });
     }
 
-    function toggleAudio() {
-        if (isPlaying) {
-            audio.pause();
-            musicIcon.classList.remove('spinning');
-            musicIcon.classList.add('paused');
-        } else {
-            playAudio();
-        }
-        isPlaying = !isPlaying;
-    }
-
-    // Sự kiện click vào nút
-    musicControl.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleAudio();
+    // PHÁT NHẠC KHI TỰ ĐỘNG CUỘN BẮT ĐẦU (Không làm dừng Auto Scroll)
+    window.addEventListener('load', () => {
+        // Thử phát ngay khi load xong
+        forcePlay();
+        
+        // Theo dõi hành vi cuộn (kể cả cuộn tự động)
+        let hasTriggered = false;
+        window.addEventListener('scroll', () => {
+            if (!hasTriggered) {
+                forcePlay();
+                hasTriggered = true;
+            }
+        }, { passive: true });
     });
 
-    // Mẹo "Autoplay": Phát ngay khi người dùng chạm vào bất cứ đâu trên trang
-    document.addEventListener('touchstart', () => { if(!isPlaying) playAudio(); }, { once: true });
-    document.addEventListener('mousedown', () => { if(!isPlaying) playAudio(); }, { once: true });
-    document.addEventListener('scroll', () => { if(!isPlaying) playAudio(); }, { once: true });
+    // Vẫn cho phép khách bấm vào nốt nhạc để tắt/mở thủ công nếu họ muốn
+    document.getElementById('musicControl').addEventListener('click', (e) => {
+        e.stopPropagation(); // Quan trọng: Ngăn chặn sự kiện này truyền ra ngoài làm dừng Auto Scroll
+        if (audio.paused) {
+            audio.play();
+            musicIcon.classList.remove('paused');
+        } else {
+            audio.pause();
+            musicIcon.classList.add('paused');
+        }
+    });
 </script>
 </body>
 </html>
