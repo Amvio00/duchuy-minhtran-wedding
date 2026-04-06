@@ -527,5 +527,64 @@
         document.getElementById("weddingForm").onsubmit = () => { submitted = true; return true; };
         document.getElementById("wishForm").onsubmit = () => { wishSubmitted = true; return true; };
     </script>
+    <script>
+    // --- 1. TẠO HIỆU ỨNG RƠI ---
+    const particles = ['🍃', '❤️', '✨', '🌸']; // Bạn có thể thêm icon tùy thích
+    
+    function createParticle() {
+        const p = document.createElement('div');
+        const type = particles[Math.floor(Math.random() * particles.length)];
+        
+        p.innerText = type;
+        p.className = 'particle';
+        if (type === '✨') p.classList.add('bling');
+        
+        // Ngẫu nhiên vị trí, kích thước, thời gian rơi
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.fontSize = (Math.random() * 15 + 10) + 'px';
+        p.style.opacity = Math.random() * 0.5 + 0.5;
+        p.style.animationDuration = (Math.random() * 3 + 4) + 's'; // Rơi trong 4-7s
+        
+        document.body.appendChild(p);
+        
+        // Xóa sau khi rơi xong để nhẹ máy
+        setTimeout(() => { p.remove(); }, 7000);
+    }
+    
+    // Tạo phần tử rơi mỗi 500ms
+    setInterval(createParticle, 500);
+
+    // --- 2. TỰ ĐỘNG CUỘN (AUTO-SCROLL) ---
+    let isAutoScrolling = true;
+    let scrollSpeed = 1; // Tốc độ cuộn (tăng số này nếu muốn nhanh hơn)
+    let autoScrollTimer;
+
+    function startAutoScroll() {
+        if (!isAutoScrolling) return;
+        window.scrollBy(0, scrollSpeed);
+        autoScrollTimer = requestAnimationFrame(startAutoScroll);
+    }
+
+    // Dừng cuộn khi có tương tác (chạm, cuộn chuột, click)
+    function stopAutoScroll() {
+        isAutoScrolling = false;
+        cancelAnimationFrame(autoScrollTimer);
+        
+        // Sau 5 giây không làm gì thì tự động cuộn lại
+        clearTimeout(window.resumeTimer);
+        window.resumeTimer = setTimeout(() => {
+            isAutoScrolling = true;
+            startAutoScroll();
+        }, 5000); 
+    }
+
+    // Lắng nghe các sự kiện tương tác của người dùng
+    window.addEventListener('wheel', stopAutoScroll);
+    window.addEventListener('touchstart', stopAutoScroll);
+    window.addEventListener('mousedown', stopAutoScroll);
+
+    // Bắt đầu chạy
+    startAutoScroll();
+</script>
 </body>
 </html>
