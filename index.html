@@ -1,254 +1,94 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đức Huy & Minh Trân Wedding</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<!-- Cấu trúc Audio ẩn -->
+<audio id="weddingMusic" loop>
+    <source id="musicSource" type="audio/mpeg">
+</audio>
 
-    <style>
-        :root {
-            --primary-dark: #7a2b2d;
-            --moss-green: #6b705c;
-            --gold-line: #c4a484;
-            --glass-white: rgba(255, 255, 255, 0.6);
-        }
+<!-- Nút điều khiển Nốt nhạc quay tròn -->
+<div id="musicControl" class="music-note-wrapper">
+    <div id="musicIcon" class="music-note">♫</div>
+</div>
 
-        body, html {
-            margin: 0; padding: 0;
-            font-family: 'Quicksand', sans-serif;
-            background-color: #fdfbf7;
-            overflow: hidden; /* Khóa cuộn lúc đầu */
-        }
+<style>
+    .music-note-wrapper {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 10000;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid var(--moss-green);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
 
-        /* --- CÁNH HOA RƠI --- */
-        #petal-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9999;
-        }
+    .music-note {
+        font-size: 24px;
+        color: var(--moss-green);
+        line-height: 1;
+        transition: all 0.3s ease;
+    }
 
-        /* --- MÀN HÌNH CHÀO (OVERLAY) --- */
-        #wedding-overlay {
-            position: fixed; inset: 0;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 1000;
-            background-image: url('anhbia.jpg'); 
-            background-size: cover;
-            background-position: center;
-            transition: opacity 1.5s ease, transform 1.5s ease;
-        }
+    /* Hiệu ứng xoay tròn */
+    .spinning {
+        animation: spin 3s linear infinite;
+    }
 
-        .main-card {
-            width: 85%; max-width: 420px; padding: 10px;
-            border: 1px solid var(--gold-line); border-radius: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
 
-        .glass-content {
-            background: var(--glass-white);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 40px 20px; border-radius: 20px; text-align: center;
-        }
+    /* Hiệu ứng mờ khi dừng */
+    .paused {
+        opacity: 0.6;
+    }
+</style>
 
-        .names {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.3rem; color: #2d3826; margin: 8px 0; line-height: 1.1;
-        }
+<script>
+    const songList = ['nhac1.mp3', 'nhac2.mp3', 'nhac3.mp3'];
+    const audio = document.getElementById('weddingMusic');
+    const source = document.getElementById('musicSource');
+    const musicControl = document.getElementById('musicControl');
+    const musicIcon = document.getElementById('musicIcon');
 
-        .guest-box {
-            background: rgba(122, 43, 45, 0.12);
-            color: var(--primary-dark);
-            padding: 10px 25px; border-radius: 30px;
-            display: inline-block; font-weight: 600;
-            margin: 20px 0; min-width: 180px;
-        }
+    // Chọn ngẫu nhiên bài hát
+    source.src = songList[Math.floor(Math.random() * songList.length)];
+    audio.load();
 
-        .btn-open {
-            background-color: var(--primary-dark);
-            color: white; border: none;
-            padding: 13px 50px; border-radius: 30px;
-            font-size: 1rem; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(122, 43, 45, 0.3);
-        }
+    let isPlaying = false;
 
-        /* --- NỘI DUNG CHÍNH --- */
-        #main-invitation {
-            display: none; opacity: 0;
-            background: white; min-height: 100vh;
-            transition: opacity 1.2s ease-out;
-        }
+    function playAudio() {
+        audio.play().then(() => {
+            isPlaying = true;
+            musicIcon.classList.add('spinning');
+            musicIcon.classList.remove('paused');
+        }).catch(e => console.log("Chờ tương tác người dùng để phát nhạc"));
+    }
 
-        /* --- CODE NHẠC BẠN YÊU CẦU LƯU --- */
-        .music-note-wrapper {
-            position: fixed; bottom: 25px; right: 25px;
-            z-index: 10000; cursor: pointer;
-            width: 50px; height: 50px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid var(--moss-green);
-            border-radius: 50%;
-            display: none; /* Ẩn cho tới khi mở thiệp */
-            align-items: center; justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
+    function toggleAudio() {
+        if (isPlaying) {
+            audio.pause();
+            musicIcon.classList.remove('spinning');
+            musicIcon.classList.add('paused');
+        } else {
+            playAudio();
+        }
+        isPlaying = !isPlaying;
+    }
 
-        .music-note {
-            font-size: 24px; color: var(--moss-green);
-            line-height: 1; transition: all 0.3s ease;
-        }
+    // Sự kiện click vào nút
+    musicControl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleAudio();
+    });
 
-        .spinning { animation: spin 3s linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .paused { opacity: 0.6; }
-
-        .stage-exit { opacity: 0 !important; transform: scale(1.1) !important; pointer-events: none; }
-    </style>
-</head>
-<body>
-
-    <canvas id="petal-canvas"></canvas>
-
-    <!-- Cấu trúc Audio ẩn -->
-    <audio id="weddingMusic" loop>
-        <source id="musicSource" type="audio/mpeg">
-    </audio>
-
-    <!-- Màn hình chào -->
-    <div id="wedding-overlay">
-        <div class="main-card" data-aos="zoom-in" data-aos-duration="1200">
-            <div class="glass-content">
-                <p style="letter-spacing: 3px; font-size: 0.75rem; color: #555; font-weight: 600;">WEDDING INVITATION</p>
-                <div class="names">Đức Huy</div>
-                <div style="font-size: 1.6rem; color: var(--gold-line); font-family: 'Great Vibes';">&</div>
-                <div class="names">Minh Trân</div>
-                <p style="font-size: 0.8rem; color: #555; margin-top: 20px; font-weight: 600;">THÂN MỜI</p>
-                
-                <!-- Tên khách trên màn hình chào -->
-                <div class="guest-box" id="guest-name-overlay">Quý Khách</div>
-                
-                <p style="font-size: 0.82rem; color: #444; margin-bottom: 20px;">Đến dự buổi tiệc chung vui cùng gia đình chúng tôi</p>
-                <button class="btn-open" onclick="openWedding()">Mở thiệp</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Nội dung thiệp sau khi mở -->
-    <div id="main-invitation">
-        <!-- Nút nhạc quay tròn -->
-        <div id="musicControl" class="music-note-wrapper">
-            <div id="musicIcon" class="music-note">♫</div>
-        </div>
-
-        <section style="padding: 100px 20px; text-align: center;">
-            <p data-aos="fade-up">Trân trọng kính mời:</p>
-            <!-- Tên khách trong nội dung thiệp -->
-            <h2 id="guest-name-main" style="font-family: 'Great Vibes'; font-size: 3.5rem; color: var(--primary-dark);" data-aos="zoom-in">Quý Khách</h2>
-            
-            <div style="margin-top: 50px;" data-aos="fade-up">
-                <p>Cảm ơn bạn đã tham gia cùng chúng tôi trong ngày trọng đại này!</p>
-                <!-- Bạn dán tiếp các phần Lịch, Gallery... của bạn vào đây -->
-            </div>
-            
-            <div style="height: 1000px;"></div>
-        </section>
-    </div>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // --- 1. XỬ LÝ TÊN KHÁCH MỜI TỪ LINK ---
-        function getGuestName() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const guest = urlParams.get('to') || "Quý Khách";
-            document.getElementById('guest-name-overlay').innerText = guest;
-            document.getElementById('guest-name-main').innerText = guest;
-        }
-        getGuestName();
-
-        // --- 2. CODE NHẠC BẠN YÊU CẦU LƯU ---
-        const songList = ['nhac1.mp3', 'nhac2.mp3', 'nhac3.mp3'];
-        const audio = document.getElementById('weddingMusic');
-        const source = document.getElementById('musicSource');
-        const musicControl = document.getElementById('musicControl');
-        const musicIcon = document.getElementById('musicIcon');
-
-        source.src = songList[Math.floor(Math.random() * songList.length)];
-        audio.load();
-
-        let isPlaying = false;
-
-        function playAudio() {
-            audio.play().then(() => {
-                isPlaying = true;
-                musicIcon.classList.add('spinning');
-                musicIcon.classList.remove('paused');
-                musicControl.style.display = 'flex'; // Hiện nút nhạc khi bắt đầu phát
-            }).catch(e => console.log("Chờ tương tác..."));
-        }
-
-        function toggleAudio() {
-            if (isPlaying) {
-                audio.pause();
-                musicIcon.classList.remove('spinning');
-                musicIcon.classList.add('paused');
-            } else {
-                playAudio();
-            }
-            isPlaying = !isPlaying;
-        }
-
-        musicControl.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleAudio();
-        });
-
-        // --- 3. LOGIC MỞ THIỆP ---
-        AOS.init({ duration: 1000, once: true });
-
-        function openWedding() {
-            const overlay = document.getElementById('wedding-overlay');
-            const mainContent = document.getElementById('main-invitation');
-            
-            // Kích hoạt nhạc ngay khi bấm nút mở
-            playAudio();
-            
-            overlay.classList.add('stage-exit');
-            mainContent.style.display = 'block';
-            
-            setTimeout(() => {
-                mainContent.style.opacity = '1';
-                overlay.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Mở khóa cuộn trang
-                AOS.refresh();
-            }, 1200);
-        }
-
-        // --- 4. HIỆU ỨNG CÁNH HOA RƠI ---
-        const canvas = document.getElementById('petal-canvas');
-        const ctx = canvas.getContext('2d');
-        let w, h, petals = [];
-        function initCanvas() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
-        window.addEventListener('resize', initCanvas); initCanvas();
-
-        class Petal {
-            constructor() {
-                this.x = Math.random() * w; this.y = Math.random() * h - h;
-                this.size = Math.random() * 8 + 5; this.speed = Math.random() * 1.5 + 1;
-                this.angle = Math.random() * 360; this.spin = Math.random() * 2 - 1;
-            }
-            update() {
-                this.y += this.speed; this.angle += this.spin;
-                if (this.y > h) { this.y = -20; this.x = Math.random() * w; }
-            }
-            draw() {
-                ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle * Math.PI / 180);
-                ctx.beginPath(); ctx.ellipse(0, 0, this.size, this.size/1.5, 0, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 192, 203, 0.7)'; ctx.fill(); ctx.restore();
-            }
-        }
-        for (let i = 0; i < 40; i++) petals.push(new Petal());
-        function animate() { ctx.clearRect(0, 0, w, h); petals.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
-        animate();
-    </script>
-</body>
-</html>
+    // Mẹo "Autoplay": Phát ngay khi người dùng chạm vào bất cứ đâu trên trang
+    document.addEventListener('touchstart', () => { if(!isPlaying) playAudio(); }, { once: true });
+    document.addEventListener('mousedown', () => { if(!isPlaying) playAudio(); }, { once: true });
+    document.addEventListener('scroll', () => { if(!isPlaying) playAudio(); }, { once: true });
+</script>
