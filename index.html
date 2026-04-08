@@ -605,9 +605,13 @@ window.scrollTo(0, 0);
         let submitted = false, wishSubmitted = false;
 
         const urlParams = new URLSearchParams(window.location.search);
-        const guest = urlParams.get('guest');
-        if (guest) { document.getElementById("guest-name").innerText = guest; }
+let guest = urlParams.get('guest');
 
+if (guest) {
+    // Lệnh này sẽ tìm tất cả dấu "-" và thay lại bằng khoảng trắng " "
+    let formattedName = guest.replace(/-/g, ' ');
+    document.getElementById("guest-name").innerText = formattedName;
+}
         const weddingDate = new Date("May 9, 2026 18:30:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
