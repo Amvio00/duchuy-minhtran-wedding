@@ -299,16 +299,27 @@
         animatePetals();
 
         // --- MỞ THIỆP ---
-        function openWedding() {
-            document.getElementById('wedding-overlay').classList.add('stage-exit');
-            const main = document.getElementById('main-invitation');
-            main.classList.add('stage-enter');
-            document.getElementById('weddingMusic').play().catch(() => {});
-            setTimeout(() => { 
-                document.getElementById('wedding-overlay').style.display = 'none';
-                AOS.refresh();
-            }, 1500);
-        }
+       function openWedding() {
+    document.getElementById('wedding-overlay').classList.add('stage-exit');
+    const main = document.getElementById('main-invitation');
+    main.classList.add('stage-enter');
+    
+    // Phát nhạc
+    document.getElementById('weddingMusic').play().catch(() => {});
+
+    setTimeout(() => { 
+        document.getElementById('wedding-overlay').style.display = 'none';
+        document.body.style.overflow = 'auto'; // Cho phép cuộn trang
+        
+        // TỰ ĐỘNG CUỘN XUỐNG PHẦN GIỚI THIỆU (COUPLE)
+        window.scrollTo({
+            top: window.innerHeight * 0.8, // Cuộn xuống khoảng 80% màn hình đầu tiên
+            behavior: 'smooth'            // Cuộn mượt mà
+        });
+
+        AOS.refresh();
+    }, 1500);
+}
 
         // --- ĐẾM NGƯỢC ---
         const weddingDate = new Date("May 9, 2026 18:30:00").getTime();
