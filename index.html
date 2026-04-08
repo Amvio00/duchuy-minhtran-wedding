@@ -153,45 +153,59 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-       function openWedding() {
+      let autoScrollInterval; // Biến để quản lý việc cuộn tự động
+
+function openWedding() {
     const audio = document.getElementById('weddingMusic');
     const overlay = document.getElementById('wedding-overlay');
     const main = document.getElementById('main-invitation');
     
-    // 1. Load nhạc ngay lập tức
+    // 1. Cài đặt nhạc ngẫu nhiên
     const playlist = ['nhac1.mp3', 'nhac2.mp3', 'nhac3.mp3'];
     audio.src = playlist[Math.floor(Math.random() * playlist.length)];
-    audio.play().catch(() => console.log("Music waiting for interaction"));
+    audio.play().catch(() => {});
 
-    // 2. Hiệu ứng biến mất màn hình chào (dùng opacity thay vì scale để tránh giật)
-    overlay.style.transition = "opacity 0.8s ease-out";
+    // 2. Biến mất màn hình chào dứt khoát
+    overlay.style.transition = "opacity 0.8s ease";
     overlay.style.opacity = "0";
     
-    // 3. Hiển thị khung nội dung chính (chuẩn bị sẵn để hiện lên)
+    // 3. Hiện nội dung chính NGAY TỪ ĐẦU (không cuộn ngay)
     main.style.display = "block";
-    main.style.opacity = "0";
+    main.style.opacity = "1";
 
     setTimeout(() => {
         overlay.style.display = "none";
-        
-        // 4. Fade-in nội dung chính mượt mà
-        main.style.transition = "opacity 1.2s ease-in";
-        main.style.opacity = "1";
-        
-        // Cho phép cuộn trang
         document.body.style.overflow = "auto";
-        
-        // 5. Đợi một chút cho hiệu ứng Fade-in chạy rồi mới cuộn
+        AOS.refresh();
+
+        // 4. BẮT ĐẦU CUỘN TỰ ĐỘNG SAU 2 GIÂY (để khách kịp nhìn ảnh đầu tiên)
         setTimeout(() => {
-            window.scrollTo({
-                top: window.innerHeight * 0.6, // Cuộn xuống vừa phải để thấy hình cô dâu chú rể
-                behavior: 'smooth'
-            });
-            AOS.refresh(); // Kích hoạt hiệu ứng bay ra của các thành phần
-        }, 500);
+            startAutoScroll();
+        }, 2000);
 
     }, 800);
 }
+
+function startAutoScroll() {
+    // Mỗi 20ms sẽ cuộn xuống 1 pixel (rất mượt và chậm)
+    autoScrollInterval = setInterval(() => {
+        window.scrollBy(0, 1);
+        
+        // Nếu cuộn đến cuối trang thì dừng
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            stopAutoScroll();
+        }
+    }, 20); 
+}
+
+function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+}
+
+// 5. NẾU KHÁCH CHỦ ĐỘNG CUỘN HOẶC CHẠM VÀO MÀN HÌNH -> DỪNG AUTO ROLL NGAY
+window.addEventListener('wheel', stopAutoScroll); // Cuộn chuột
+window.addEventListener('touchstart', stopAutoScroll); // Chạm tay (Mobile)
+window.addEventListener('keydown', stopAutoScroll); // Bấm phím
 
         // Cánh hoa rơi
         const canvas = document.getElementById('petal-canvas');
