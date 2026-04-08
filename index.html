@@ -274,8 +274,8 @@
         <img id="lightbox-img" style="max-width: 90%; max-height: 80%;">
     </div>
 
-    <!-- MUSIC -->
-    <audio id="weddingMusic" loop><source src="nhac1.mp3" type="audio/mpeg"></audio>
+    <!-- AUDIO CONTROL -->
+<audio id="weddingMusic" loop></audio>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -300,27 +300,31 @@
 
         // --- MỞ THIỆP ---
        function openWedding() {
+    const audio = document.getElementById('weddingMusic');
+    
+    // Danh sách 3 bài nhạc của bạn
+    const playlist = ['nhac1.mp3', 'nhac2.mp3', 'nhac3.mp3'];
+    
+    // Chọn ngẫu nhiên 1 bài
+    const randomSong = playlist[Math.floor(Math.random() * playlist.length)];
+    
+    // Gán vào trình phát nhạc
+    audio.src = randomSong;
+
+    // Các hiệu ứng mở thiệp cũ
     document.getElementById('wedding-overlay').classList.add('stage-exit');
     const main = document.getElementById('main-invitation');
     main.classList.add('stage-enter');
     
-    // Phát nhạc
-    document.getElementById('weddingMusic').play().catch(() => {});
+    // Phát bài nhạc đã chọn
+    audio.play().catch(e => console.log("Music blocked by browser"));
 
     setTimeout(() => { 
         document.getElementById('wedding-overlay').style.display = 'none';
-        document.body.style.overflow = 'auto'; // Cho phép cuộn trang
-        
-        // TỰ ĐỘNG CUỘN XUỐNG PHẦN GIỚI THIỆU (COUPLE)
-        window.scrollTo({
-            top: window.innerHeight * 0.8, // Cuộn xuống khoảng 80% màn hình đầu tiên
-            behavior: 'smooth'            // Cuộn mượt mà
-        });
-
+        document.body.style.overflow = 'auto';
         AOS.refresh();
     }, 1500);
 }
-
         // --- ĐẾM NGƯỢC ---
         const weddingDate = new Date("May 9, 2026 18:30:00").getTime();
         setInterval(() => {
