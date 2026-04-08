@@ -834,6 +834,24 @@
     document.addEventListener('touchstart', () => { if(!isPlaying) playAudio(); }, { once: true });
     document.addEventListener('mousedown', () => { if(!isPlaying) playAudio(); }, { once: true });
     document.addEventListener('scroll', () => { if(!isPlaying) playAudio(); }, { once: true });
+    // Đoạn mã xử lý khi click vào màn hình để mở thiệp
+const curtain = document.getElementById('curtain-overlay');
+if (curtain) {
+    curtain.addEventListener('click', function() {
+        // Thêm class 'opened' để kích hoạt hiệu ứng CSS trượt sang 2 bên
+        curtain.classList.add('opened');
+        
+        // Phát nhạc ngay khi mở thiệp (đã có hàm playAudio trong code cũ của bạn)
+        if (typeof playAudio === "function") {
+            playAudio();
+        }
+
+        // Đợi hiệu ứng trượt xong (1.5s) thì xóa hẳn màn che để khách có thể thao tác nội dung bên dưới
+        setTimeout(() => {
+            curtain.style.display = 'none';
+        }, 1500);
+    });
+}
 </script>
 </body>
 </html>
