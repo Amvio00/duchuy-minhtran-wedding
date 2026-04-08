@@ -328,6 +328,11 @@
             from { opacity: 0.5; transform: scale(0.8) translateY(0); }
             to { opacity: 1; transform: scale(1.2) translateY(5px); }
         }
+        // Tự động cuộn lên đầu trang khi reload
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
     </style>
 </head>
 <body>
