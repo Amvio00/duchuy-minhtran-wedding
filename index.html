@@ -819,5 +819,88 @@
     document.addEventListener('mousedown', () => { if(!isPlaying) playAudio(); }, { once: true });
     document.addEventListener('scroll', () => { if(!isPlaying) playAudio(); }, { once: true });
 </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // 1. Khởi tạo hiệu ứng cuộn AOS
+    AOS.init({ duration: 1000, once: true });
+
+    // 2. Hàm mở thiệp
+    function openInvitation() {
+        const cover = document.getElementById('invitation-cover');
+        cover.style.transform = 'translateY(-100%)';
+        document.body.style.overflow = 'auto'; // Cho phép cuộn trang sau khi mở
+        
+        // Kích hoạt nhạc nền nếu bạn có thêm thẻ <audio> sau này
+        // createParticles(); // Có thể kích hoạt hiệu ứng rơi ngay khi mở
+    }
+
+    // 3. Hiệu ứng rơi (Cánh hoa/Bling)
+    function createParticles() {
+        const container = document.body;
+        const particleCount = 20;
+        const types = ['🌸', '✨', '🤍']; // Bạn có thể thay bằng icon hoặc link ảnh nhỏ
+
+        for (let i = 0; i < particleCount; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.textContent = types[Math.floor(Math.random() * types.length)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.fontSize = (Math.random() * 10 + 15) + 'px';
+            p.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            p.style.opacity = Math.random();
+            container.appendChild(p);
+
+            p.addEventListener('animationend', () => p.remove());
+        }
+    }
+    setInterval(createParticles, 2000); // Tạo mới mỗi 2 giây
+
+    // 4. Đếm ngược (Countdown)
+    const weddingDate = new Date("May 9, 2026 18:30:00").getTime();
+    const timer = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = days + " ngày " + hours + " giờ " + minutes + " phút " + seconds + " giây ";
+
+        if (distance < 0) {
+            clearInterval(timer);
+            document.getElementById("timer").innerHTML = "Hôm nay là ngày trọng đại!";
+        }
+    }, 1000);
+
+    // 5. Lightbox (Xem ảnh)
+    let currentImgIdx = 0;
+    const images = ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp"];
+
+    function openLightbox(index) {
+        currentImgIdx = index;
+        document.getElementById('lightbox-img').src = images[currentImgIdx];
+        document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').style.display = 'none';
+    }
+
+    function changeImage(dir) {
+        currentImgIdx = (currentImgIdx + dir + images.length) % images.length;
+        document.getElementById('lightbox-img').src = images[currentImgIdx];
+    }
+
+    // 6. Xử lý Form RSVP & Guestbook
+    let submitted = false;
+    let wishSubmitted = false;
+    document.getElementById('openRSVP').onclick = () => document.getElementById('rsvpModal').style.display = 'flex';
+    document.getElementById('closeRSVP').onclick = () => document.getElementById('rsvpModal').style.display = 'none';
+    
+    document.getElementById('weddingForm').onsubmit = () => { submitted = true; };
+    document.getElementById('wishForm').onsubmit = () => { wishSubmitted = true; };
+</script>
 </body>
 </html>
