@@ -331,17 +331,29 @@
         /* =========================================
    PHẦN CSS MỚI CHO HIỆU ỨNG MỞ MÀN
    ========================================= */
-#curtain-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 20000; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    overflow: hidden;
-    background-color: #000; /* Nền đen mờ phía sau cánh cửa */
-}
+<div id="curtain-overlay">
+    <div class="curtain-left"></div>
+    <div class="curtain-right"></div>
+    <div class="curtain-card">
+        <div class="card-inner">
+            <div class="heart-icon">❤️</div>
+            <p class="invitation-sub">WEDDING INVITATION</p>
+            
+            <h1 class="couple-name">Đức Huy</h1>
+            <div class="ampersand-divider">&</div>
+            <h1 class="couple-name">Minh Trân</h1>
+            
+            <div class="date-line">09 . 05 . 2026</div>
+            
+            <p class="guest-greet">THÂN MỜI</p>
+            <div class="guest-box">Quý Khách</div>
+            
+            <p class="invite-desc">Đến dự buổi tiệc chung vui<br>cùng gia đình chúng tôi</p>
+            
+            <div class="open-card-btn">Mở thiệp</div>
+        </div>
+    </div>
+</div>
 
 .curtain-left, .curtain-right {
     position: absolute;
@@ -403,10 +415,121 @@
     animation: bounce 2s infinite;
 }
 
+/* =========================================
+   GIAO DIỆN MÀN CHÀO KIỂU DỌC MỚI
+   ========================================= */
+#curtain-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 20000; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: #fdfaf7;
+}
+
+/* 2 cánh cửa dùng ảnh bia */
+.curtain-left, .curtain-right {
+    position: absolute;
+    top: 0; width: 50%; height: 100%;
+    background-image: url('anhbia.jpg'); 
+    background-size: 200% 100%; 
+    background-repeat: no-repeat;
+    transition: transform 1.5s cubic-bezier(0.7, 0, 0.3, 1);
+    z-index: 1;
+}
+
+.curtain-left { left: 0; background-position: left center; border-right: 1px solid rgba(255,255,255,0.3); }
+.curtain-right { right: 0; background-position: right center; border-left: 1px solid rgba(255,255,255,0.3); }
+
+/* Khung nội dung trắng mờ ở giữa */
+.curtain-card {
+    position: relative;
+    z-index: 2;
+    width: 85%;
+    max-width: 380px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 25px;
+    padding: 50px 25px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    transition: all 0.8s ease;
+}
+
+.heart-icon { color: #8b2635; font-size: 1.2rem; margin-bottom: 10px; }
+
+.invitation-sub {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: #666;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.couple-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5rem;
+    color: #2d3e2d; 
+    margin: 0;
+    line-height: 1.2;
+}
+
+.ampersand-divider {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: #a0a0a0;
+    margin: 10px 0;
+}
+
+.date-line {
+    border-top: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dcdcdc;
+    display: inline-block;
+    padding: 8px 20px;
+    margin: 25px 0;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: #444;
+    font-family: 'Playfair Display', serif;
+}
+
+.guest-greet { font-size: 0.8rem; color: #888; margin-bottom: 8px; letter-spacing: 1px; }
+
+.guest-box {
+    color: #8b2635;
+    padding: 8px 25px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.invite-desc { font-size: 0.9rem; color: #555; line-height: 1.6; margin-bottom: 30px; font-style: italic; }
+
+.open-card-btn {
+    background: #8b2635; 
+    color: white;
+    padding: 14px 45px;
+    border-radius: 50px;
+    display: inline-block;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(139, 38, 53, 0.3);
+}
+
 /* Hiệu ứng khi mở */
 #curtain-overlay.opened .curtain-left { transform: translateX(-100%); }
 #curtain-overlay.opened .curtain-right { transform: translateX(100%); }
-#curtain-overlay.opened .curtain-content { opacity: 0; pointer-events: none; }
+#curtain-overlay.opened .curtain-card { opacity: 0; pointer-events: none; transform: scale(0.9); }
 
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
