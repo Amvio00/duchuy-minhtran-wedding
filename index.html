@@ -28,55 +28,66 @@
             line-height: 1.6;
         }
 
-        /* --- PHẦN MỞ THIỆP (MỚI THÊM) --- */
-        #invitation-cover {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100vh;
-            background: var(--moss-green);
-            z-index: 10000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
-        }
+       /* --- PHẦN MỞ THIỆP ĐÃ ĐIỀU CHỈNH THEO MẪU --- */
+#invitation-cover {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    /* Sử dụng hình nền anhbia.jpg của bạn */
+    background: url('anhbia.jpg') no-repeat center center/cover;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
 
-        .cover-content {
-            text-align: center;
-            color: white;
-            padding: 20px;
-        }
+/* Khung kính mờ ở giữa (Glassmorphism) */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.4); /* Độ mờ trắng nhẹ */
+    backdrop-filter: blur(10px); /* Hiệu ứng làm mờ nền */
+    -webkit-backdrop-filter: blur(10px);
+    padding: 40px 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
 
-        .cover-logo {
-            font-family: 'Great Vibes', cursive;
-            font-size: 4rem;
-            color: var(--metallic-gold);
-            margin-bottom: 20px;
-        }
+.cover-logo-v2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: #2d3e2d; /* Màu chữ tối để nổi bật trên nền kính */
+    margin: 10px 0;
+}
 
-        .btn-open {
-            padding: 15px 40px;
-            background: transparent;
-            border: 2px solid var(--metallic-gold);
-            color: white;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-            cursor: pointer;
-            border-radius: 50px;
-            transition: all 0.3s;
-            text-transform: uppercase;
-        }
+.cover-date-v2 {
+    font-size: 1rem;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    color: #444;
+}
 
-        .btn-open:hover {
-            background: var(--metallic-gold);
-            color: var(--moss-green);
-        }
+.btn-open-v2 {
+    padding: 12px 35px;
+    background: #7c2d2d; /* Màu đỏ đô giống trong hình bạn gửi */
+    color: white;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: transform 0.2s, background 0.3s;
+    text-transform: uppercase;
+}
 
-        .cover-hidden {
-            transform: translateY(-100%);
-        }
-
+.btn-open-v2:hover {
+    background: #5a2020;
+    transform: scale(1.05);
+}
         /* --- HERO SECTION --- */
         .hero {
             height: 100vh;
@@ -380,14 +391,21 @@
 </head>
 <body style="overflow: hidden;"> <!-- Khóa cuộn trang khi chưa mở thiệp -->
 
-    <!-- PHẦN MÀN CHÀO / MỞ THIỆP (MỚI) -->
-    <div id="invitation-cover">
-        <div class="cover-content">
-            <div class="cover-logo">Đ & M</div>
-            <p style="letter-spacing: 5px; margin-bottom: 30px;">SAVE THE DATE</p>
-            <button class="btn-open" onclick="openInvitation()">Mở Thiệp</button>
-        </div>
+    <!-- PHẦN MÀN CHÀO / MỞ THIỆP -->
+<div id="invitation-cover">
+    <div class="glass-panel" data-aos="zoom-in">
+        <p style="font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 0;">WEDDING INVITATION</p>
+        <div class="cover-logo-v2">Đức Huy & Minh Trân</div>
+        <p class="cover-date-v2">09 . 05 . 2026</p>
+        
+        <p style="font-size: 0.8rem; margin-bottom: 10px; opacity: 0.8;">THÂN MỜI</p>
+        <div id="guest-name-cover" style="font-weight: 600; margin-bottom: 20px; font-size: 1.1rem;">Bạn và người thương</div>
+        
+        <p style="font-size: 0.8rem; margin-bottom: 25px; line-height: 1.4;">Đến dự buổi tiệc chung vui<br>cùng gia đình chúng tôi</p>
+        
+        <button class="btn-open-v2" onclick="openInvitation()">Mở thiệp</button>
     </div>
+</div>
 
     <!-- NỘI DUNG GỐC CỦA BẠN (KHÔNG ĐỔI) -->
     <!-- HERO -->
@@ -647,7 +665,10 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const guest = urlParams.get('guest');
-        if (guest) { document.getElementById("guest-name").innerText = guest; }
+        if (guest) { 
+    document.getElementById("guest-name").innerText = guest; 
+    document.getElementById("guest-name-cover").innerText = guest; // Hiện tên ở bìa mờ
+}
 
         const weddingDate = new Date("May 9, 2026 18:30:00").getTime();
         setInterval(function() {
