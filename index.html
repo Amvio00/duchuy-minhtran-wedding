@@ -314,33 +314,20 @@
         }
         @media (min-width: 768px) { .couple-grid { flex-direction: row; max-width: 900px; } }
 
-       /* --- EFFECT: FALLING ELEMENTS (ĐÃ CHỈNH CHẬM & MỜ) --- */
-.particle {
-    position: fixed; 
-    top: -50px; 
-    z-index: 9999;
-    pointer-events: none; 
-    user-select: none;
-    filter: blur(0.5px); /* Độ mờ nhẹ cho tự nhiên */
-    animation: fall linear forwards;
-}
-
-@keyframes fall {
-    to { 
-        transform: translateY(110vh) rotate(360deg); 
-        opacity: 0; /* Biến mất dần khi rơi xuống cuối */
-    }
-}
+        /* --- EFFECT: FALLING ELEMENTS --- */
+        .particle {
+            position: fixed; top: -50px; z-index: 9999;
+            pointer-events: none; user-select: none;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
         .bling { animation: fall linear forwards, twinkle 1.5s infinite alternate; }
         @keyframes twinkle {
             from { opacity: 0.5; transform: scale(0.8) translateY(0); }
             to { opacity: 1; transform: scale(1.2) translateY(5px); }
         }
-        // Tự động cuộn lên đầu trang khi reload
-if (history.scrollRestoration) {
-    history.scrollRestoration = 'manual';
-}
-window.scrollTo(0, 0);
     </style>
 </head>
 <body>
@@ -604,21 +591,10 @@ window.scrollTo(0, 0);
         AOS.init({ duration: 1200, once: true });
         let submitted = false, wishSubmitted = false;
 
-       const urlParams = new URLSearchParams(window.location.search);
-let guest = urlParams.get('guest');
+        const urlParams = new URLSearchParams(window.location.search);
+        const guest = urlParams.get('guest');
+        if (guest) { document.getElementById("guest-name").innerText = guest; }
 
-if (guest) {
-    // 1. Chuyển dấu gạch ngang thành khoảng trắng
-    // 2. Viết hoa các chữ cái đầu (để đề phòng trường hợp link bị viết thường)
-    let formattedName = guest.replace(/-/g, ' ');
-    
-    // Hàm này giúp viết hoa chữ cái đầu cho đẹp
-    formattedName = formattedName.split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-
-    document.getElementById("guest-name").innerText = formattedName;
-}
         const weddingDate = new Date("May 9, 2026 18:30:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
@@ -727,7 +703,7 @@ if (guest) {
 </style>
 
 <script>
-    const songList = ['nhac1.mp3', 'nhac2.mp3', 'nhac3.mp3', 'nhac4.mp3', 'nhac5.mp3'];
+    const songList = ['nhac1.mp3', 'nhac2.mp3', 'nhac3.mp3','nhac4.mp3','nhac5.mp3'];
     const audio = document.getElementById('weddingMusic');
     const source = document.getElementById('musicSource');
     const musicControl = document.getElementById('musicControl');
