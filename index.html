@@ -28,66 +28,6 @@
             line-height: 1.6;
         }
 
-       /* --- PHẦN MỞ THIỆP ĐÃ ĐIỀU CHỈNH THEO MẪU --- */
-#invitation-cover {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100vh;
-    /* Sử dụng hình nền anhbia.jpg của bạn */
-    background: url('anhbia.jpg') no-repeat center center/cover;
-    z-index: 10000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-/* Khung kính mờ ở giữa (Glassmorphism) */
-.glass-panel {
-    background: rgba(255, 255, 255, 0.4); /* Độ mờ trắng nhẹ */
-    backdrop-filter: blur(10px); /* Hiệu ứng làm mờ nền */
-    -webkit-backdrop-filter: blur(10px);
-    padding: 40px 30px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.cover-logo-v2 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 3rem;
-    color: #2d3e2d; /* Màu chữ tối để nổi bật trên nền kính */
-    margin: 10px 0;
-}
-
-.cover-date-v2 {
-    font-size: 1rem;
-    letter-spacing: 3px;
-    margin-bottom: 20px;
-    color: #444;
-}
-
-.btn-open-v2 {
-    padding: 12px 35px;
-    background: #7c2d2d; /* Màu đỏ đô giống trong hình bạn gửi */
-    color: white;
-    border: none;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 50px;
-    transition: transform 0.2s, background 0.3s;
-    text-transform: uppercase;
-}
-
-.btn-open-v2:hover {
-    background: #5a2020;
-    transform: scale(1.05);
-}
         /* --- HERO SECTION --- */
         .hero {
             height: 100vh;
@@ -317,6 +257,7 @@
             position: relative;
         }
 
+        /* Lớp phủ mờ để chữ dễ đọc hơn trên nền hoa */
         .calendar-content-wrapper::before {
             content: "";
             position: absolute;
@@ -387,27 +328,100 @@
             from { opacity: 0.5; transform: scale(0.8) translateY(0); }
             to { opacity: 1; transform: scale(1.2) translateY(5px); }
         }
+        /* =========================================
+   PHẦN CSS MỚI CHO HIỆU ỨNG MỞ MÀN
+   ========================================= */
+#curtain-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 20000; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: #000; /* Nền đen mờ phía sau cánh cửa */
+}
+
+.curtain-left, .curtain-right {
+    position: absolute;
+    top: 0; width: 50%; height: 100%;
+    background-color: var(--moss-green); 
+    transition: transform 1.5s cubic-bezier(0.7, 0, 0.3, 1);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+
+.curtain-left { 
+    left: 0; 
+    border-right: 1px solid var(--metallic-gold);
+    justify-content: flex-end;
+}
+
+.curtain-right { 
+    right: 0; 
+    border-left: 1px solid var(--metallic-gold);
+    justify-content: flex-start;
+}
+
+.curtain-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--metallic-gold);
+    transition: opacity 0.8s ease;
+    background: rgba(45, 62, 45, 0.9);
+    padding: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--metallic-gold);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.curtain-names {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    margin-bottom: 10px;
+    white-space: nowrap;
+}
+
+.curtain-content p {
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.open-btn {
+    font-size: 2.5rem;
+    margin-top: 15px;
+    animation: bounce 2s infinite;
+}
+
+/* Hiệu ứng khi mở */
+#curtain-overlay.opened .curtain-left { transform: translateX(-100%); }
+#curtain-overlay.opened .curtain-right { transform: translateX(100%); }
+#curtain-overlay.opened .curtain-content { opacity: 0; pointer-events: none; }
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-15px);}
+    60% {transform: translateY(-7px);}
+}
     </style>
 </head>
-<body style="overflow: hidden;"> <!-- Khóa cuộn trang khi chưa mở thiệp -->
-
-    <!-- PHẦN MÀN CHÀO / MỞ THIỆP -->
-<div id="invitation-cover">
-    <div class="glass-panel" data-aos="zoom-in">
-        <p style="font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 0;">WEDDING INVITATION</p>
-        <div class="cover-logo-v2">Đức Huy & Minh Trân</div>
-        <p class="cover-date-v2">09 . 05 . 2026</p>
-        
-        <p style="font-size: 0.8rem; margin-bottom: 10px; opacity: 0.8;">THÂN MỜI</p>
-        <div id="guest-name-cover" style="font-weight: 600; margin-bottom: 20px; font-size: 1.1rem;">Bạn và người thương</div>
-        
-        <p style="font-size: 0.8rem; margin-bottom: 25px; line-height: 1.4;">Đến dự buổi tiệc chung vui<br>cùng gia đình chúng tôi</p>
-        
-        <button class="btn-open-v2" onclick="openInvitation()">Mở thiệp</button>
+<body>
+    <!-- Màn chào hỏi (Curtain) -->
+<div id="curtain-overlay">
+    <div class="curtain-left"></div>
+    <div class="curtain-right"></div>
+    <div class="curtain-content">
+        <div class="curtain-names">Đức Huy & Minh Trân</div>
+        <p>Bấm để mở thiệp</p>
+        <div class="open-btn">✉</div>
     </div>
 </div>
 
-    <!-- NỘI DUNG GỐC CỦA BẠN (KHÔNG ĐỔI) -->
     <!-- HERO -->
     <section class="hero">
         <div class="hero-content" data-aos="fade-up">
@@ -554,14 +568,18 @@
         </div>
     </section>
 
+    <!-- KẾT THÚC TRANG WEB: LỊCH & CREDIT -->
 <section id="final-section">
     <div class="calendar-container" data-aos="zoom-in">
+        <!-- Ảnh trên lịch -->
         <img src="anhganthiep.webp" class="img-top-calendar" alt="Wedding Couple">
+        
         <div class="calendar-content-wrapper">
             <div class="cal-header-bottom">
                 <div class="cal-year-bg">2026</div>
                 <div class="cal-month-fg">May</div>
             </div>
+            
             <div class="cal-grid-bottom">
                 <div class="cal-weekday-bottom">T2</div>
                 <div class="cal-weekday-bottom">T3</div>
@@ -570,10 +588,13 @@
                 <div class="cal-weekday-bottom">T6</div>
                 <div class="cal-weekday-bottom">T7</div>
                 <div class="cal-weekday-bottom">CN</div>
+
+                <!-- Căn lề cho tháng 5/2026 (Bắt đầu từ Thứ 6) -->
                 <div></div><div></div><div></div><div></div>
                 <div class="cal-date-bottom">1</div>
                 <div class="cal-date-bottom">2</div>
                 <div class="cal-date-bottom">3</div>
+                
                 <div class="cal-date-bottom">4</div>
                 <div class="cal-date-bottom">5</div>
                 <div class="cal-date-bottom">6</div>
@@ -581,6 +602,7 @@
                 <div class="cal-date-bottom">8</div>
                 <div class="cal-date-bottom active">9</div>
                 <div class="cal-date-bottom">10</div>
+                
                 <div class="cal-date-bottom">11</div>
                 <div class="cal-date-bottom">12</div>
                 <div class="cal-date-bottom">13</div>
@@ -588,6 +610,7 @@
                 <div class="cal-date-bottom">15</div>
                 <div class="cal-date-bottom">16</div>
                 <div class="cal-date-bottom">17</div>
+
                 <div class="cal-date-bottom">18</div>
                 <div class="cal-date-bottom">19</div>
                 <div class="cal-date-bottom">20</div>
@@ -595,6 +618,7 @@
                 <div class="cal-date-bottom">22</div>
                 <div class="cal-date-bottom">23</div>
                 <div class="cal-date-bottom">24</div>
+
                 <div class="cal-date-bottom">25</div>
                 <div class="cal-date-bottom">26</div>
                 <div class="cal-date-bottom">27</div>
@@ -603,11 +627,13 @@
                 <div class="cal-date-bottom">30</div>
                 <div class="cal-date-bottom">31</div>
             </div>
+            
             <div class="cal-footer-text" style="font-style: italic; font-size: 0.8rem; margin-top: 15px; color: var(--moss-green);">
                 "A happy marriage is a long conversation which always seems too short."
             </div>
         </div>
     </div>
+
     <div class="footer-credit">
         DESIGNED FOR THE SPECIAL DAY OF MINH TRAN & DUC HUY © 2026
     </div>
@@ -653,22 +679,11 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1200, once: true });
-
-        
-        /* HÀM MỚI ĐỂ MỞ THIỆP */
-        function openInvitation() {
-            document.getElementById('invitation-cover').classList.add('cover-hidden');
-            document.body.style.overflow = "auto";
-        }
-
         let submitted = false, wishSubmitted = false;
 
         const urlParams = new URLSearchParams(window.location.search);
         const guest = urlParams.get('guest');
-        if (guest) { 
-    document.getElementById("guest-name").innerText = guest; 
-    document.getElementById("guest-name-cover").innerText = guest; // Hiện tên ở bìa mờ
-}
+        if (guest) { document.getElementById("guest-name").innerText = guest; }
 
         const weddingDate = new Date("May 9, 2026 18:30:00").getTime();
         setInterval(function() {
@@ -692,9 +707,9 @@
         document.getElementById("closeRSVP").onclick = () => modal.style.display = "none";
         document.getElementById("weddingForm").onsubmit = () => { submitted = true; return true; };
         document.getElementById("wishForm").onsubmit = () => { wishSubmitted = true; return true; };
-        
+
         // --- PARTICLE EFFECT ---
-        const particleIcons = ['💐', '🌹', '🌿','✨','☘️', '🌸','🐼', '🐱'];
+        const particleIcons = ['💐', '🌹', '🌿','✨','☘️', '🌸'];
         function createParticle() {
             const p = document.createElement('div');
             const type = particleIcons[Math.floor(Math.random() * particleIcons.length)];
@@ -776,6 +791,7 @@
         opacity: 0.6;
     }
 </style>
+
 <script>
     const songList = ['nhac1.mp3', 'nhac2.mp3', 'nhac3.mp3'];
     const audio = document.getElementById('weddingMusic');
@@ -818,89 +834,6 @@
     document.addEventListener('touchstart', () => { if(!isPlaying) playAudio(); }, { once: true });
     document.addEventListener('mousedown', () => { if(!isPlaying) playAudio(); }, { once: true });
     document.addEventListener('scroll', () => { if(!isPlaying) playAudio(); }, { once: true });
-</script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    // 1. Khởi tạo hiệu ứng cuộn AOS
-    AOS.init({ duration: 1000, once: true });
-
-    // 2. Hàm mở thiệp
-    function openInvitation() {
-        const cover = document.getElementById('invitation-cover');
-        cover.style.transform = 'translateY(-100%)';
-        document.body.style.overflow = 'auto'; // Cho phép cuộn trang sau khi mở
-        
-        // Kích hoạt nhạc nền nếu bạn có thêm thẻ <audio> sau này
-        // createParticles(); // Có thể kích hoạt hiệu ứng rơi ngay khi mở
-    }
-
-    // 3. Hiệu ứng rơi (Cánh hoa/Bling)
-    function createParticles() {
-        const container = document.body;
-        const particleCount = 20;
-        const types = ['🌸', '✨', '🤍']; // Bạn có thể thay bằng icon hoặc link ảnh nhỏ
-
-        for (let i = 0; i < particleCount; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.textContent = types[Math.floor(Math.random() * types.length)];
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.fontSize = (Math.random() * 10 + 15) + 'px';
-            p.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            p.style.opacity = Math.random();
-            container.appendChild(p);
-
-            p.addEventListener('animationend', () => p.remove());
-        }
-    }
-    setInterval(createParticles, 2000); // Tạo mới mỗi 2 giây
-
-    // 4. Đếm ngược (Countdown)
-    const weddingDate = new Date("May 9, 2026 18:30:00").getTime();
-    const timer = setInterval(function() {
-        const now = new Date().getTime();
-        const distance = weddingDate - now;
-        
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById("timer").innerHTML = days + " ngày " + hours + " giờ " + minutes + " phút " + seconds + " giây ";
-
-        if (distance < 0) {
-            clearInterval(timer);
-            document.getElementById("timer").innerHTML = "Hôm nay là ngày trọng đại!";
-        }
-    }, 1000);
-
-    // 5. Lightbox (Xem ảnh)
-    let currentImgIdx = 0;
-    const images = ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp"];
-
-    function openLightbox(index) {
-        currentImgIdx = index;
-        document.getElementById('lightbox-img').src = images[currentImgIdx];
-        document.getElementById('lightbox').style.display = 'flex';
-    }
-
-    function closeLightbox() {
-        document.getElementById('lightbox').style.display = 'none';
-    }
-
-    function changeImage(dir) {
-        currentImgIdx = (currentImgIdx + dir + images.length) % images.length;
-        document.getElementById('lightbox-img').src = images[currentImgIdx];
-    }
-
-    // 6. Xử lý Form RSVP & Guestbook
-    let submitted = false;
-    let wishSubmitted = false;
-    document.getElementById('openRSVP').onclick = () => document.getElementById('rsvpModal').style.display = 'flex';
-    document.getElementById('closeRSVP').onclick = () => document.getElementById('rsvpModal').style.display = 'none';
-    
-    document.getElementById('weddingForm').onsubmit = () => { submitted = true; };
-    document.getElementById('wishForm').onsubmit = () => { wishSubmitted = true; };
 </script>
 </body>
 </html>
