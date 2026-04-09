@@ -218,7 +218,7 @@
 
 .photo-item { 
     position: relative; 
-    aspect-ratio: 3/4; /* Thay 1/1 thành 3/4 hoặc 2/3 để ra hình chữ nhật đứng */
+    aspect-ratio: 2/3; /* Thay 1/1 thành 3/4 hoặc 2/3 để ra hình chữ nhật đứng */
     overflow: hidden; 
     border-radius: 10px; 
     cursor: pointer; 
@@ -806,6 +806,10 @@ if (document.getElementById("more-count")) {
     document.addEventListener('touchstart', () => { if(!isPlaying) playAudio(); }, { once: true });
     document.addEventListener('mousedown', () => { if(!isPlaying) playAudio(); }, { once: true });
     document.addEventListener('scroll', () => { if(!isPlaying) playAudio(); }, { once: true });
+    if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
 </script>
 </body>
 </html>
