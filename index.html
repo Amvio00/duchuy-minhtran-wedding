@@ -462,19 +462,22 @@
         <div class="photo-item photo-more" onclick="openLightbox(3)"><img src="4.webp"></div>
         
         <div style="display:none;">
-            <img src="15.webp" onclick="openLightbox(4)">
-            <img src="16.webp" onclick="openLightbox(5)">
-            <img src="5.webp" onclick="openLightbox(6)">
-            <img src="6.webp" onclick="openLightbox(7)">
-            <img src="7.webp" onclick="openLightbox(8)">
-            <img src="8.webp" onclick="openLightbox(9)">
-            <img src="11.webp" onclick="openLightbox(10)">
-            <img src="12.webp" onclick="openLightbox(11)">
-            <img src="13.webp" onclick="openLightbox(12)">
-            <img src="14.webp" onclick="openLightbox(13)">
-            <img src="9.webp" onclick="openLightbox(14)">
-            <img src="17.webp" onclick="openLightbox(15)">
-            <img src="10.webp" onclick="openLightbox(16)">
+            <div style="display:none;">
+    <img src="15.webp">
+    <img src="16.webp">
+    <img src="5.webp">
+    <img src="6.webp">
+    <img src="7.webp">
+    <img src="8.webp">
+    <img src="18.webp"> <!-- Hình mới thêm ở đây -->
+    <img src="11.webp">
+    <img src="12.webp">
+    <img src="13.webp">
+    <img src="14.webp">
+    <img src="9.webp">
+    <img src="17.webp">
+    <img src="10.webp">
+</div>
         </div>
     </div>
 </section>
@@ -623,11 +626,18 @@
         }, 1000);
 
         const images = [
-    "1.webp", "2.webp", "3.webp", "4.webp", "15.webp", 
-    "16.webp", "5.webp", "6.webp", "7.webp", "8.webp", 
-    "11.webp", "12.webp", "13.webp", "14.webp", "9.webp", 
-    "17.webp", "10.webp"
+    "1.webp", "2.webp", "3.webp", "4.webp", 
+    "15.webp", "16.webp", "5.webp", "6.webp", "7.webp", "8.webp", 
+    "18.webp", // Chèn đúng vị trí sau số 8
+    "11.webp", "12.webp", "13.webp", "14.webp", "9.webp", "17.webp", "10.webp"
 ];
+
+// Đoạn này giúp tự động cập nhật con số hiển thị trên tấm hình thứ 4
+const totalImg = images.length;
+const visibleImg = 4; 
+if (totalImg > visibleImg) {
+    document.getElementById("more-count").innerText = "+" + (totalImg - visibleImg);
+}
         let currentIndex = 0;
         function openLightbox(index) { currentIndex = index; document.getElementById("lightbox-img").src = images[currentIndex]; document.getElementById("lightbox").style.display = "flex"; }
         function closeLightbox() { document.getElementById("lightbox").style.display = "none"; }
