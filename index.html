@@ -7,6 +7,7 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -357,6 +358,18 @@
             to { opacity: 1; transform: scale(1.2) translateY(5px); }
         }
     </style>
+    <style>
+        /* Dán vào đây */
+        .saint-name {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            text-transform: capitalize;
+            font-size: 0.9em;
+            margin-right: 8px;
+            color: #d4af37;
+        }
+    </style>
 </head>
 <body>
 
@@ -402,13 +415,13 @@
             <div class="family-side">
                 <h3>Nhà Trai</h3>
                 <p>Ông: Mai Văn Thọ</p>
-                <p>Bà: Vũ Thuý Phượng</p>
+                <p>Bà: Anna Vũ Thuý Phượng</p>
                 <p style="opacity: 0.7; font-size: 0.75rem;">Phan Huy Ích, Phường. Tân Sơn, TP. Hồ Chí Minh</p>
             </div>
             <div class="family-side">
                 <h3>Nhà Gái</h3>
-                <p>Ông: Nguyễn Quốc Hưng</p>
-                <p>Bà: Đoàn Thị Thu Tâm</p>
+                <p>Ông: Luca Nguyễn Quốc Hưng</p>
+                <p>Bà: Anna Đoàn Thị Thu Tâm</p>
                 <p style="opacity: 0.7; font-size: 0.75rem;">Phước An 2, Xã Phước Hậu, Tỉnh Khánh Hoà</p>
             </div>
         </div>
@@ -419,11 +432,14 @@
 
         <div class="full-names-display" data-aos="fade-up">
             <div class="role-title">Út Nam</div>
-            <div class="name-display">MAI ĐỨC HUY</div>
+    <div class="name-display">
+        <span class="saint-name">Matthew</span> MAI ĐỨC HUY
+    </div>
             <span class="ampersand">&</span>
             <div class="role-title">Út Nữ</div>
-            <div class="name-display">NGUYỄN THỊ MINH TRÂN</div>
-        </div>
+    <div class="name-display">
+        <span class="saint-name">Maria</span> NGUYỄN THỊ MINH TRÂN
+    </div>
 
         <div class="invite-text" data-aos="fade-up">Trân trọng kính mời:</div>
         <div id="guest-name" data-aos="fade-up">Quý Khách</div>
