@@ -210,16 +210,44 @@
         }
 
         /* --- ALBUM --- */
-        .album-section { padding: 80px 15px; text-align: center; background-color: #fff; }
-        .album-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--moss-green); letter-spacing: 5px; margin-bottom: 40px; text-transform: uppercase; }
-        .photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 800px; margin: 0 auto; }
-        .photo-item { position: relative; aspect-ratio: 1/1; overflow: hidden; border-radius: 10px; cursor: pointer; }
-        .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .photo-item:hover img { transform: scale(1.05); }
-        .photo-more::after {
-            content: "+7"; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4); color: white; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
-        }
+.album-section { padding: 80px 15px; text-align: center; background-color: #fff; }
+.album-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--moss-green); letter-spacing: 5px; margin-bottom: 40px; text-transform: uppercase; }
+
+/* Chỉnh lại lưới ảnh */
+.photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 800px; margin: 0 auto; }
+
+.photo-item { 
+    position: relative; 
+    aspect-ratio: 3/4; /* Thay 1/1 thành 3/4 hoặc 2/3 để ra hình chữ nhật đứng */
+    overflow: hidden; 
+    border-radius: 10px; 
+    cursor: pointer; 
+}
+
+.photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.photo-item:hover img { transform: scale(1.05); }
+
+/* Lớp phủ mờ cho tấm cuối */
+.photo-more::after {
+    content: ""; /* Xóa bỏ chữ +7 ở đây */
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4); 
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* Thêm CSS để số hiện lên trên lớp phủ */
+#more-count {
+    position: absolute;
+    z-index: 2;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    /* Căn giữa tuyệt đối */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* Để bấm xuyên qua chữ vào ảnh được */
+}
 
         /* --- GUESTBOOK --- */
         .guestbook-section { padding: 80px 20px; text-align: center; background: linear-gradient(to bottom, #fff, var(--bg-color)); }
@@ -459,7 +487,10 @@
         <div class="photo-item" onclick="openLightbox(0)"><img src="1.webp"></div>
         <div class="photo-item" onclick="openLightbox(1)"><img src="2.webp"></div>
         <div class="photo-item" onclick="openLightbox(2)"><img src="3.webp"></div>
-        <div class="photo-item photo-more" onclick="openLightbox(3)"><img src="4.webp"></div>
+        <div class="photo-item photo-more" onclick="openLightbox(3)">
+    <img src="4.webp">
+    <span id="more-count"></span> <!-- Để trống để Script tự điền số -->
+</div>
         
         <div style="display:none;">
             <img src="15.webp" onclick="openLightbox(4)">
@@ -622,12 +653,21 @@
             }
         }, 1000);
 
-        const images = [
-        "1.webp", "2.webp", "3.webp", "4.webp", "15.webp", 
-        "16.webp", "5.webp", "6.webp", "7.webp", "8.webp", 
-        "11.webp", "12.webp", "13.webp", "14.webp", "9.webp", 
-        "17.webp", "10.webp"
-    ];
+        // 1. Khai báo danh sách ảnh (đã thêm tấm 18)
+const images = [
+    "1.webp", "2.webp", "3.webp", "4.webp", "15.webp", 
+    "16.webp", "5.webp", "6.webp", "7.webp", "8.webp", 
+    "18.webp", "11.webp", "12.webp", "13.webp", "14.webp", 
+    "9.webp", "17.webp", "10.webp"
+];
+
+const totalImg = images.length;
+const visibleImg = 4; 
+
+// Dòng này sẽ tìm ID "more-count" và điền con số chính xác vào
+if (document.getElementById("more-count")) {
+    document.getElementById("more-count").innerText = "+" + (totalImg - visibleImg);
+}
         let currentIndex = 0;
         function openLightbox(index) { currentIndex = index; document.getElementById("lightbox-img").src = images[currentIndex]; document.getElementById("lightbox").style.display = "flex"; }
         function closeLightbox() { document.getElementById("lightbox").style.display = "none"; }
