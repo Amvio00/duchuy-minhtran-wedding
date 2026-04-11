@@ -121,44 +121,44 @@
 /* --- TỔNG THỂ KHU VỰC TÊN --- */
 .full-names-display {
     text-align: center;
-    margin: 30px 0;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 20px 0;
 }
 
-/* --- TÊN CHÍNH (ĐỨC HUY - MINH TRÂN) --- */
+/* Container bọc cả Tên Thánh và Tên Chính */
+.name-wrapper {
+    display: flex;
+    justify-content: center; /* Căn giữa cả cụm */
+    align-items: baseline;   /* Giúp chân chữ nằm thẳng hàng nhau */
+    gap: 10px;               /* Khoảng cách giữa tên Thánh và tên chính */
+    margin: 5px 0;
+}
+
+/* Tên Thánh: Nhỏ hơn, bay bướm */
+.saint-name {
+    font-family: 'Great Vibes', cursive !important;
+    color: #c9a55c;
+    font-size: 1.8rem; /* Giảm xuống một chút để không lấn lướt tên chính */
+    font-weight: 400;
+}
+
+/* Tên Chính: To, rõ, trang trọng */
 .name-display {
-    display: inline-block;
-    vertical-align: middle;
-    font-family: 'Crimson Text', serif; /* Yêu cầu bạn đã nhúng link Google Font Crimson Text */
-    font-size: 2.4rem;
+    font-family: 'Crimson Text', serif !important;
+    font-size: 2.2rem; /* Để to hơn tên thánh */
     color: #444;
     text-transform: uppercase;
-    letter-spacing: 3px; /* Tạo khoảng cách thưa sang trọng */
-    font-weight: 400;
+    letter-spacing: 2px;
+    font-weight: 600;
 }
 
-/* --- TÊN THÁNH (Maria, Matthew) --- */
-.saint-name {
-    font-family: 'Great Vibes', cursive; /* Yêu cầu bạn đã nhúng link Google Font Great Vibes */
-    color: #c9a55c; /* Màu vàng đồng nhẹ nhàng */
-    font-size: 2.2rem;
-    font-weight: 400;
-    font-style: italic;
-    margin-right: 15px;
-    vertical-align: middle;
-}
-
-/* --- KÍ TỰ & --- */
+/* Kí tự & */
 .ampersand {
     display: block;
-    text-align: center;
-    margin: 10px 0;
     font-family: 'Great Vibes', cursive;
     color: #c9a55c;
-    font-size: 3rem;
+    font-size: 2.5rem;
+    margin: 10px 0;
 }
 
 /* Dòng chú thích (Út Nam, Út Nữ) */
@@ -172,20 +172,22 @@
 }
 
 /* --- ĐIỀU CHỈNH RIÊNG CHO ĐIỆN THOẠI --- */
-@media (max-width: 480px) {
-    .name-display {
-        font-size: clamp(1.2rem, 5.5vw, 2rem); /* Chữ tự co giãn để không bị vỡ */
-        letter-spacing: 1px; /* Thu hẹp khoảng cách chữ */
-        white-space: nowrap; /* Tránh mất chữ ÂN */
+@media (max-width: 600px) {
+    .name-wrapper {
+        gap: 8px; /* Thu hẹp khoảng cách trên điện thoại */
     }
-    
+
     .saint-name {
-        font-size: 1.8rem;
-        margin-right: 10px;
+        font-size: 5vw !important; /* Co giãn theo màn hình */
+    }
+
+    .name-display {
+        font-size: 6.5vw !important; /* Đảm bảo tên chính luôn to hơn tên thánh */
+        letter-spacing: 1px;
     }
 
     .ampersand {
-        font-size: 2.5rem;
+        font-size: 8vw !important;
     }
     .role-title {
         font-size: 0.8rem;
