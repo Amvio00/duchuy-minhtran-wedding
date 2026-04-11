@@ -468,6 +468,29 @@
         margin-top: 40px !important; 
     }
 }
+        /* Đảm bảo dấu & hiển thị kiểu calligraphy, màu vàng kim và căn giữa */
+.ampersand {
+    display: block !important;
+    text-align: center !important;
+    margin: 15px 0 !important; /* Điều chỉnh khoảng cách trên dưới cho thoáng */
+    color: #d4af37 !important; /* Màu vàng kim */
+    
+    /* Sử dụng Font chữ Calligraphy bay bướm */
+    /* Trân hãy kiểm tra xem trong CSS chung bạn có đang sử dụng Font này hoặc 'Creattion' không nhé */
+    font-family: 'Playfair Display', serif !important; 
+    font-style: italic !important;
+    font-weight: 400 !important;
+    font-size: 2.5rem !important; /* Tăng kích thước để nổi bật hơn */
+    
+    /* Đảm bảo không bị các thuộc tính khác ảnh hưởng */
+    text-transform: none !important;
+    letter-spacing: normal !important;
+}
+
+/* Thêm hiệu ứng bay bướm một chút bằng pseudo-element nếu Font chữ không đủ độ cong */
+/*.ampersand::after {
+    content: '\00A0\00A0'; /* Thêm khoảng trắng bay bướm nếu cần */
+}*/
     </style>
 </head>
 <body>
