@@ -441,6 +441,57 @@
         padding: 0 20px;
     }
 }
+        /* --- FIX LỖI MOBILE CHO TRÂN --- */
+@media (max-width: 600px) {
+    /* 1. Xếp Nhà Trai - Nhà Gái thành hàng dọc để đủ chỗ cho tên */
+    .family-info {
+        display: flex !important;
+        flex-direction: column !important; /* Xếp chồng lên nhau */
+        align-items: center !important;
+        text-align: center !important;
+        gap: 25px !important;
+    }
+
+    .family-side {
+        width: 100% !important;
+    }
+
+    /* 2. Ép tên Cha Mẹ không được xuống dòng và tự nhỏ lại */
+    .family-side p {
+        font-size: 4.5vw !important; /* Tự co giãn theo màn hình */
+        white-space: nowrap !important;
+        overflow: visible !important;
+        margin: 5px 0 !important;
+    }
+
+    /* Riêng địa chỉ thì cho phép xuống dòng vì nó quá dài */
+    .family-side p[style*="opacity: 0.7"] {
+        white-space: normal !important;
+        font-size: 3.2vw !important;
+        padding: 0 15px;
+    }
+
+    /* 3. Sửa tên Cô Dâu - Chú Rể luôn nằm trên 1 hàng */
+    .name-display {
+        font-size: 5.5vw !important; /* Chữ tự nhỏ lại để vừa màn hình */
+        white-space: nowrap !important;
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .saint-name {
+        display: inline-block !important;
+        margin-right: 5px !important;
+    }
+
+    /* Chỉnh ký tự & cho gọn lại */
+    .ampersand {
+        display: block !important;
+        margin: 10px 0 !important;
+        font-size: 1.5rem !important;
+    }
+}
     </style>
 </head>
 <body>
