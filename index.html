@@ -359,41 +359,17 @@
         }
     </style>
     <style>
-        /* Dán vào đây */
-        .saint-name {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-weight: 400;
-            text-transform: capitalize;
-            font-size: 0.9em;
-            margin-right: 8px;
-            color: #d4af37;
-        }
-        /* Sửa lỗi xuống dòng cho cả Nhà Gái/Nhà Trai và Tên Cô Dâu/Chú Rể */
-@media (max-width: 480px) {
-    /* 1. Phần thông tin Cha Mẹ ở trên cùng */
-    .family-info-container { 
-        display: flex;
-        flex-direction: column; /* Chuyển thành hàng dọc trên điện thoại để đủ chỗ */
-        align-items: center;
-        gap: 20px;
-    }
-
-    .family-info-item {
-        width: 100% !important;
-        text-align: center !important;
-        font-size: 0.9rem !important; /* Chỉnh chữ nhỏ lại một chút */
-    }
-
-    /* 2. Phần tên NGUYỄN THỊ MINH TRÂN */
-    .bride-name, .groom-name, h2 {
-        font-size: 6.5vw !important; /* Tự co giãn theo màn hình */
-        white-space: nowrap !important; /* Cấm xuống dòng */
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+        /* --- PHẦN CHUNG --- */
+.saint-name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    text-transform: capitalize;
+    font-size: 0.9em;
+    margin-right: 5px;
+    color: #d4af37;
 }
-        /* Container tổng của phần thông tin gia đình */
+
 .family-info {
     display: flex;
     justify-content: space-between;
@@ -405,59 +381,42 @@
     flex: 1;
 }
 
-/* Ép tên cha mẹ nằm trên 1 hàng và không bị xuống dòng */
-.family-side p {
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis; /* Nếu tên quá dài sẽ có dấu ... thay vì nhảy dòng */
-    margin: 5px 0;
-}
-
-/* ĐIỀU CHỈNH RIÊNG CHO ĐIỆN THOẠI */
-/* Fix lỗi tràn màn hình và mất chữ */
+/* --- ĐIỀU CHỈNH RIÊNG CHO ĐIỆN THOẠI (DƯỚI 600PX) --- */
 @media (max-width: 600px) {
-    /* Giữ hai nhà song song nhưng bóp nhỏ khoảng cách */
+    /* Giữ Nhà Trai - Nhà Gái song song nhưng thu nhỏ hết cỡ */
     .family-info {
         display: flex !important;
-        flex-direction: row !important; /* Ép nằm ngang */
-        justify-content: space-between !important;
+        flex-direction: row !important;
         gap: 5px !important;
-        width: 100% !important;
+        justify-content: space-around !important;
     }
 
-    .family-side {
-        flex: 1 !important;
-        min-width: 0 !important; /* Quan trọng: để nội dung không đẩy khung */
-    }
-
-    /* Tên cha mẹ: tự nhỏ lại để vừa hàng */
     .family-side p {
-        font-size: 3.2vw !important; 
+        /* Dùng vw cực nhỏ để không bị vỡ dòng tên Ba Mẹ */
+        font-size: 3.1vw !important; 
         white-space: nowrap !important;
-        margin: 4px 0 !important;
+        letter-spacing: -0.2px; /* Ép các chữ khít lại một chút */
     }
 
-    /* Tên Cô dâu - Chú rể: Khắc phục việc mất chữ ÂN */
-    .full-names-display {
-        width: 100% !important;
-        overflow: visible !important; /* Để chữ không bị cắt */
-    }
-
+    /* Khắc phục lỗi mất chữ "ÂN" của cô dâu */
     .name-display {
-        font-size: 5vw !important; /* Hạ nhỏ size xuống một chút nữa */
+        font-size: 4.6vw !important; /* Hạ size xuống mức an toàn */
         white-space: nowrap !important;
         display: block !important;
         width: 100% !important;
         text-align: center !important;
+        letter-spacing: -0.5px !important; /* Ép chữ khít lại để thấy đủ chữ ÂN */
     }
 
     .saint-name {
-        font-size: 3.5vw !important; /* Tên thánh nhỏ lại */
+        font-size: 3.2vw !important;
     }
 
-    /* Nếu tên vẫn dài, đoạn này sẽ ép nó co lại cho vừa khít màn hình */
-    .name-display, .family-side p {
-        transform-origin: center;
+    /* Địa chỉ cho phép xuống dòng để không lấn chỗ tên */
+    .family-side p[style*="opacity: 0.7"] {
+        white-space: normal !important;
+        font-size: 2.5vw !important;
+        line-height: 1.2;
     }
 }
     </style>
@@ -528,7 +487,7 @@
     </div>
             <span class="ampersand">&</span>
             <div class="role-title">Út Nữ</div>
-   <div class="name-display">
+   <div class="name-display" style="letter-spacing: -0.5px;">
     <span class="saint-name">Maria</span> NGUYỄN THỊ MINH TRÂN
 </div>
 
