@@ -118,42 +118,82 @@
         }
 
         /* Container bao quanh toàn bộ cụm tên */
+/* TỔNG THỂ KHU VỰC TÊN CD-CR - CĂN GIỮA */
 .full-names-display {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important; /* Căn giữa theo chiều dọc */
-    align-items: center !important;     /* Căn giữa theo chiều ngang */
-    min-height: 40vh; /* Tạo một khoảng không gian đủ rộng để thấy rõ việc căn giữa */
-    text-align: center !important;
-    width: 100% !important;
-    margin: 20px 0 !important;
+    text-align: center;
+    margin: 30px 0;
+    width: 100%;
+    display: block; /* Đảm bảo căn giữa chuẩn */
 }
 
-/* Điều chỉnh khoảng cách cho các thành phần bên trong */
+/* ĐIỀU CHỈNH FONT CHỮ CHÍNH CỦA CD-CR */
+.name-display {
+    display: inline-block;
+    vertical-align: middle;
+    
+    /* 1. TĂNG KÍCH THƯỚC: to hơn 1.8rem ban đầu */
+    font-size: 2rem; 
+    
+    /* 2. CHỌN FONT CHỮ: Serif thanh lịch thay vì Sans-serif hẹp */
+    font-family: 'Playfair Display', serif; /* Yêu cầu Trân đã thêm link Google Font Playfair Display */
+    
+    /* 3. ĐỘ ĐẬM VÀ MÀU SẮC */
+    font-weight: 500; /* Vừa phải, không quá đậm để giữ sự thanh thoát */
+    color: #4a4a4a; /* Màu xám đậm sang trọng */
+    text-transform: uppercase; /* Giữ chữ viết hoa */
+    
+    /* 4. TẠO KHOẢNG CÁCH THƯA CÁC CHỮ CÁI - ĐIỂM NHẤN SANG TRỌNG */
+    letter-spacing: 2px;
+}
+
+/* ĐIỀU CHỈNH TÊN THÁNH (Maria, Matthew) */
+.saint-name {
+    /* Font chữ bay bướm vàng kim giống hệt "Matthew" và "Maria" trong ảnh bạn muốn */
+    font-family: 'Montserrat, Creattion, cursive' !important; /* Thay bằng tên font bay bướm bạn đang dùng */
+    
+    /* Màu vàng kim sang trọng */
+    color: #d4af37; 
+    
+    /* Cỡ chữ nghệ thuật, hòa hợp với tên chính */
+    font-size: 1.6rem; 
+    
+    /* Các thuộc tính giữ nguyên điệu đà */
+    font-style: italic;
+    font-weight: 400;
+    margin-right: 10px; /* Khoảng cách nhỏ với tên chính */
+    vertical-align: middle;
+}
+
+/* ĐIỀU CHỈNH KÍ TỰ NỐI & */
+.ampersand {
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+    
+    /* Font chữ calligraphy bay bướm màu vàng kim giống ảnh của bạn */
+    font-family: 'Montserrat, Creattion, cursive' !important; /* Cùng font với tên thánh */
+    color: #d4af37;
+    font-size: 2.5rem; 
+    font-weight: 400;
+}
+
+/* GIỮ CÁC DÒNG CHÚ THÍCH (Út Nam, Út Nữ) GỌN GÀNG */
 .role-title {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 5px;
+    color: #888;
 }
 
-.name-display {
-    width: 100% !important;
-    white-space: nowrap !important;
-    /* Dùng clamp để chữ tự co giãn, không lo mất chữ ÂN */
-    font-size: clamp(1rem, 4.8vw, 1.8rem) !important; 
-    margin: 5px 0;
-}
-
-.ampersand {
-    font-size: 2rem !important;
-    margin: 15px 0 !important;
-    display: block;
-}
-
-@media (max-width: 600px) {
-    .full-names-display {
-        min-height: 35vh; /* Điều chỉnh nhẹ cho mobile */
+/* --- ĐIỀU CHỈNH CHO MOBILE --- */
+@media (max-width: 480px) {
+    .name-display {
+        font-size: 5.5vw !important; /* Chữ tự nhỏ lại cho mobile, không bị vỡ */
+        letter-spacing: 1px; /* Thu hẹp khoảng cách chữ */
+    }
+    .saint-name {
+        font-size: 4.8vw !important;
     }
 }
 
