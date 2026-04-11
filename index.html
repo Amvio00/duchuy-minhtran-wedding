@@ -393,6 +393,54 @@
         text-overflow: ellipsis;
     }
 }
+        /* Container tổng của phần thông tin gia đình */
+.family-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.family-side {
+    flex: 1;
+}
+
+/* Ép tên cha mẹ nằm trên 1 hàng và không bị xuống dòng */
+.family-side p {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; /* Nếu tên quá dài sẽ có dấu ... thay vì nhảy dòng */
+    margin: 5px 0;
+}
+
+/* ĐIỀU CHỈNH RIÊNG CHO ĐIỆN THOẠI */
+@media (max-width: 600px) {
+    .family-info {
+        flex-direction: column; /* Chuyển thành hàng dọc */
+        gap: 30px;
+        text-align: center;
+    }
+
+    .family-side h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        border-bottom: 1px solid var(--gold-light);
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .family-side p {
+        font-size: 4.2vw !important; /* Chữ tự co giãn theo màn hình */
+        white-space: nowrap !important;
+    }
+    
+    /* Địa chỉ cho phép xuống dòng vì nó quá dài */
+    .family-side p[style*="opacity: 0.7"] {
+        white-space: normal !important;
+        font-size: 0.75rem !important;
+        padding: 0 20px;
+    }
+}
     </style>
 </head>
 <body>
