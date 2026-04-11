@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #fdfaf7;
@@ -130,68 +130,65 @@
 
 /* --- TÊN CHÍNH (ĐỨC HUY - MINH TRÂN) --- */
 .name-display {
-    display: inline-flex; /* Dùng flex để tên thánh và tên chính luôn thẳng hàng */
-    align-items: center;
-    font-size: 2rem; 
-    font-family: 'Playfair Display', serif;
-    font-weight: 500;
-    color: #4a4a4a;
+    display: inline-block;
+    vertical-align: middle;
+    font-family: 'Crimson Text', serif; /* Yêu cầu bạn đã nhúng link Google Font Crimson Text */
+    font-size: 2.4rem;
+    color: #444;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    white-space: nowrap; /* Cấm xuống dòng để không mất chữ ÂN */
+    letter-spacing: 3px; /* Tạo khoảng cách thưa sang trọng */
+    font-weight: 400;
 }
 
 /* --- TÊN THÁNH (Maria, Matthew) --- */
 .saint-name {
-    font-family: 'Creattion', cursive !important; /* Bạn kiểm tra tên font này có đúng trong máy không nhé */
-    color: #d4af37; 
-    font-size: 1.6rem; 
-    font-style: italic;
+    font-family: 'Great Vibes', cursive; /* Yêu cầu bạn đã nhúng link Google Font Great Vibes */
+    color: #c9a55c; /* Màu vàng đồng nhẹ nhàng */
+    font-size: 2.2rem;
     font-weight: 400;
-    margin-right: 10px;
-    text-transform: none; /* Tên thánh không nên viết hoa hết */
+    font-style: italic;
+    margin-right: 15px;
+    vertical-align: middle;
 }
 
 /* --- KÍ TỰ & --- */
 .ampersand {
     display: block;
-    margin: 15px 0;
-    color: #d4af37;
-    font-size: 2.5rem; 
-    font-family: 'Creattion', cursive !important;
+    text-align: center;
+    margin: 10px 0;
+    font-family: 'Great Vibes', cursive;
+    color: #c9a55c;
+    font-size: 3rem;
 }
 
+/* Dòng chú thích (Út Nam, Út Nữ) */
 .role-title {
-    font-size: 0.8rem;
+    font-family: 'Crimson Text', serif;
+    font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-top: 10px;
-    color: #888;
-    opacity: 0.8;
+    color: #777;
+    margin-bottom: 5px;
 }
 
 /* --- ĐIỀU CHỈNH RIÊNG CHO ĐIỆN THOẠI --- */
 @media (max-width: 480px) {
     .name-display {
-        /* Kích thước to hơn nhưng an toàn để không tràn màn hình */
-        font-size: 6.8vw !important; 
-        font-weight: 600 !important;
-        letter-spacing: 0.5px !important;
-        margin: 5px 0 !important;
+        font-size: clamp(1.2rem, 5.5vw, 2rem); /* Chữ tự co giãn để không bị vỡ */
+        letter-spacing: 1px; /* Thu hẹp khoảng cách chữ */
+        white-space: nowrap; /* Tránh mất chữ ÂN */
     }
     
     .saint-name {
-        font-size: 5vw !important;
-        margin-right: 5px !important;
+        font-size: 1.8rem;
+        margin-right: 10px;
     }
 
     .ampersand {
-        font-size: 3rem !important;
-        margin: 10px 0 !important;
+        font-size: 2.5rem;
     }
-
     .role-title {
-        font-size: 3vw !important;
+        font-size: 0.8rem;
     }
 }
 
@@ -467,17 +464,15 @@
     }
 
     /* Khắc phục lỗi mất chữ "ÂN" của cô dâu */
-    .name-display {
-        font-size: 4.6vw !important; /* Hạ size xuống mức an toàn */
-        white-space: nowrap !important;
-        display: block !important;
-        width: 100% !important;
-        text-align: center !important;
-        letter-spacing: -0.5px !important; /* Ép chữ khít lại để thấy đủ chữ ÂN */
+   .name-display {
+        font-size: clamp(1.2rem, 5.5vw, 2rem); /* Chữ tự co giãn để không bị vỡ */
+        letter-spacing: 1px; /* Thu hẹp khoảng cách chữ */
+        white-space: nowrap; /* Tránh mất chữ ÂN */
     }
 
     .saint-name {
-        font-size: 3.2vw !important;
+        font-size: 1.8rem;
+        margin-right: 10px;
     }
 
     /* Địa chỉ cho phép xuống dòng để không lấn chỗ tên */
@@ -485,6 +480,13 @@
         white-space: normal !important;
         font-size: 2.5vw !important;
         line-height: 1.2;
+    }
+    .ampersand {
+        font-size: 2.5rem;
+    }
+
+    .role-title {
+        font-size: 0.8rem;
     }
 }
         /* Mặc định trên máy tính thì ẩn lệnh xuống dòng này đi */
