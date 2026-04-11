@@ -157,7 +157,13 @@
     }
 }
 
-        .invite-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; margin-bottom: 5px; }
+        .invite-text {
+    margin-top: 50px !important; /* Tạo khoảng cách với tên cô dâu ở trên */
+    margin-bottom: 15px !important; /* Khoảng cách với chữ Quý Khách ở dưới */
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #555;
+}
         #guest-name {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
@@ -443,6 +449,25 @@
         line-height: 1.2;
     }
 }
+        /* Mặc định trên máy tính thì ẩn lệnh xuống dòng này đi */
+.mobile-br {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    /* Trên điện thoại thì cho phép lệnh xuống dòng hoạt động */
+    .mobile-br {
+        display: block;
+        content: "";
+        margin-top: 5px; /* Tạo khoảng cách nhẹ giữa 2 dòng địa chỉ */
+    }
+
+    /* Đảm bảo tên cô dâu và dòng kính mời có khoảng cách đẹp */
+    .name-display + .invitation-text, 
+    .full-names-display + div {
+        margin-top: 40px !important; 
+    }
+}
     </style>
 </head>
 <body>
@@ -490,13 +515,17 @@
                 <h3>Nhà Trai</h3>
                 <p>Ông: Mai Văn Thọ</p>
                 <p>Bà: Anna Vũ Thuý Phượng</p>
-                <p style="opacity: 0.7; font-size: 0.75rem;">Phan Huy Ích, Phường. Tân Sơn, TP. Hồ Chí Minh</p>
+                <p style="opacity: 0.7; font-size: 0.75rem;">
+    Phan Huy Ích, Phường. Tân Sơn, <br class="mobile-br">TP. Hồ Chí Minh
+</p>
             </div>
             <div class="family-side">
                 <h3>Nhà Gái</h3>
                 <p>Ông: Luca Nguyễn Quốc Hưng</p>
                 <p>Bà: Anna Đoàn Thị Thu Tâm</p>
-                <p style="opacity: 0.7; font-size: 0.75rem;">Phước An 2, Xã Phước Hậu, Tỉnh Khánh Hoà</p>
+                <p style="opacity: 0.7; font-size: 0.75rem;">
+    Phước An 2, Xã Phước Hậu, <br class="mobile-br">Tỉnh Khánh Hoà
+</p>
             </div>
         </div>
 
@@ -515,7 +544,9 @@
     <span class="saint-name">Maria</span> NGUYỄN THỊ MINH TRÂN
 </div>
 
-        <div class="invite-text" data-aos="fade-up">Trân trọng kính mời:</div>
+        <div class="invite-text" data-aos="fade-up" style="margin-top: 50px; margin-bottom: 10px;">
+    Trân trọng kính mời:
+</div>
         <div id="guest-name" data-aos="fade-up">Quý Khách</div>
         
         <div class="family-join-text" data-aos="fade-up">
