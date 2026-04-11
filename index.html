@@ -118,90 +118,80 @@
         }
 
         /* Container bao quanh toàn bộ cụm tên */
-/* TỔNG THỂ KHU VỰC TÊN CD-CR - CĂN GIỮA */
+/* --- TỔNG THỂ KHU VỰC TÊN --- */
 .full-names-display {
     text-align: center;
     margin: 30px 0;
     width: 100%;
-    display: block; /* Đảm bảo căn giữa chuẩn */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* ĐIỀU CHỈNH FONT CHỮ CHÍNH CỦA CD-CR */
+/* --- TÊN CHÍNH (ĐỨC HUY - MINH TRÂN) --- */
 .name-display {
-    display: inline-block;
-    vertical-align: middle;
-    
-    /* 1. TĂNG KÍCH THƯỚC: to hơn 1.8rem ban đầu */
+    display: inline-flex; /* Dùng flex để tên thánh và tên chính luôn thẳng hàng */
+    align-items: center;
     font-size: 2rem; 
-    
-    /* 2. CHỌN FONT CHỮ: Serif thanh lịch thay vì Sans-serif hẹp */
-    font-family: 'Playfair Display', serif; /* Yêu cầu Trân đã thêm link Google Font Playfair Display */
-    
-    /* 3. ĐỘ ĐẬM VÀ MÀU SẮC */
-    font-weight: 500; /* Vừa phải, không quá đậm để giữ sự thanh thoát */
-    color: #4a4a4a; /* Màu xám đậm sang trọng */
-    text-transform: uppercase; /* Giữ chữ viết hoa */
-    
-    /* 4. TẠO KHOẢNG CÁCH THƯA CÁC CHỮ CÁI - ĐIỂM NHẤN SANG TRỌNG */
-    letter-spacing: 2px;
-}
-
-/* ĐIỀU CHỈNH TÊN THÁNH (Maria, Matthew) */
-.saint-name {
-    /* Font chữ bay bướm vàng kim giống hệt "Matthew" và "Maria" trong ảnh bạn muốn */
-    font-family: 'Montserrat, Creattion, cursive' !important; /* Thay bằng tên font bay bướm bạn đang dùng */
-    
-    /* Màu vàng kim sang trọng */
-    color: #d4af37; 
-    
-    /* Cỡ chữ nghệ thuật, hòa hợp với tên chính */
-    font-size: 1.6rem; 
-    
-    /* Các thuộc tính giữ nguyên điệu đà */
-    font-style: italic;
-    font-weight: 400;
-    margin-right: 10px; /* Khoảng cách nhỏ với tên chính */
-    vertical-align: middle;
-}
-
-/* ĐIỀU CHỈNH KÍ TỰ NỐI & */
-.ampersand {
-    display: block;
-    text-align: center;
-    margin: 20px 0;
-    
-    /* Font chữ calligraphy bay bướm màu vàng kim giống ảnh của bạn */
-    font-family: 'Montserrat, Creattion, cursive' !important; /* Cùng font với tên thánh */
-    color: #d4af37;
-    font-size: 2.5rem; 
-    font-weight: 400;
-}
-
-/* GIỮ CÁC DÒNG CHÚ THÍCH (Út Nam, Út Nữ) GỌN GÀNG */
-.role-title {
-    font-size: 3vw !important;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    color: #4a4a4a;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 5px;
+    white-space: nowrap; /* Cấm xuống dòng để không mất chữ ÂN */
+}
+
+/* --- TÊN THÁNH (Maria, Matthew) --- */
+.saint-name {
+    font-family: 'Creattion', cursive !important; /* Bạn kiểm tra tên font này có đúng trong máy không nhé */
+    color: #d4af37; 
+    font-size: 1.6rem; 
+    font-style: italic;
+    font-weight: 400;
+    margin-right: 10px;
+    text-transform: none; /* Tên thánh không nên viết hoa hết */
+}
+
+/* --- KÍ TỰ & --- */
+.ampersand {
+    display: block;
+    margin: 15px 0;
+    color: #d4af37;
+    font-size: 2.5rem; 
+    font-family: 'Creattion', cursive !important;
+}
+
+.role-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 10px;
     color: #888;
     opacity: 0.8;
 }
 
-/* --- ĐIỀU CHỈNH CHO MOBILE --- */
+/* --- ĐIỀU CHỈNH RIÊNG CHO ĐIỆN THOẠI --- */
 @media (max-width: 480px) {
-   .name-display {
-        /* Tăng từ 5vw lên khoảng 7vw để tên thật sự nổi bật */
-        font-size: 7.2vw !important; 
-        font-weight: 600 !important; /* Tăng độ đậm một chút */
-        letter-spacing: 0.5px !important; /* Thu hẹp khoảng cách chữ để không mất chữ ÂN */
-        white-space: nowrap !important;
-        display: block !important;
-        margin: 8px 0 !important;
+    .name-display {
+        /* Kích thước to hơn nhưng an toàn để không tràn màn hình */
+        font-size: 6.8vw !important; 
+        font-weight: 600 !important;
+        letter-spacing: 0.5px !important;
+        margin: 5px 0 !important;
     }
-    /* Tên thánh (Maria, Matthew) cũng to theo tỉ lệ */
+    
     .saint-name {
-        font-size: 5.5vw !important;
-        margin-right: 8px !important;
+        font-size: 5vw !important;
+        margin-right: 5px !important;
+    }
+
+    .ampersand {
+        font-size: 3rem !important;
+        margin: 10px 0 !important;
+    }
+
+    .role-title {
+        font-size: 3vw !important;
     }
 }
 
