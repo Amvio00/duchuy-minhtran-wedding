@@ -369,6 +369,30 @@
             margin-right: 8px;
             color: #d4af37;
         }
+        /* Sửa lỗi xuống dòng cho cả Nhà Gái/Nhà Trai và Tên Cô Dâu/Chú Rể */
+@media (max-width: 480px) {
+    /* 1. Phần thông tin Cha Mẹ ở trên cùng */
+    .family-info-container { 
+        display: flex;
+        flex-direction: column; /* Chuyển thành hàng dọc trên điện thoại để đủ chỗ */
+        align-items: center;
+        gap: 20px;
+    }
+
+    .family-info-item {
+        width: 100% !important;
+        text-align: center !important;
+        font-size: 0.9rem !important; /* Chỉnh chữ nhỏ lại một chút */
+    }
+
+    /* 2. Phần tên NGUYỄN THỊ MINH TRÂN */
+    .bride-name, .groom-name, h2 {
+        font-size: 6.5vw !important; /* Tự co giãn theo màn hình */
+        white-space: nowrap !important; /* Cấm xuống dòng */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
     </style>
 </head>
 <body>
