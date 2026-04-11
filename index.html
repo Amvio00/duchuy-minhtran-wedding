@@ -179,21 +179,29 @@
 
 /* GIỮ CÁC DÒNG CHÚ THÍCH (Út Nam, Út Nữ) GỌN GÀNG */
 .role-title {
-    font-size: 0.8rem;
+    font-size: 3vw !important;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 5px;
     color: #888;
+    opacity: 0.8;
 }
 
 /* --- ĐIỀU CHỈNH CHO MOBILE --- */
 @media (max-width: 480px) {
-    .name-display {
-        font-size: 5.5vw !important; /* Chữ tự nhỏ lại cho mobile, không bị vỡ */
-        letter-spacing: 1px; /* Thu hẹp khoảng cách chữ */
+   .name-display {
+        /* Tăng từ 5vw lên khoảng 7vw để tên thật sự nổi bật */
+        font-size: 7.2vw !important; 
+        font-weight: 600 !important; /* Tăng độ đậm một chút */
+        letter-spacing: 0.5px !important; /* Thu hẹp khoảng cách chữ để không mất chữ ÂN */
+        white-space: nowrap !important;
+        display: block !important;
+        margin: 8px 0 !important;
     }
+    /* Tên thánh (Maria, Matthew) cũng to theo tỉ lệ */
     .saint-name {
-        font-size: 4.8vw !important;
+        font-size: 5.5vw !important;
+        margin-right: 8px !important;
     }
 }
 
@@ -512,8 +520,10 @@
 .ampersand {
     display: block !important;
     text-align: center !important;
-    margin: 15px 0 !important; /* Điều chỉnh khoảng cách trên dưới cho thoáng */
+    margin: 10px 0 !important; /* Điều chỉnh khoảng cách trên dưới cho thoáng */
     color: #d4af37 !important; /* Màu vàng kim */
+    font-size: 3.5rem !important; 
+    }
     
     /* Sử dụng Font chữ Calligraphy bay bướm */
     /* Trân hãy kiểm tra xem trong CSS chung bạn có đang sử dụng Font này hoặc 'Creattion' không nhé */
